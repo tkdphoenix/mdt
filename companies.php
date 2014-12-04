@@ -1,6 +1,48 @@
 <?php
 	include_once('inc/header.inc.php');
-	if(isset($_POST['submit'])){
+	require_once('inc/conn.inc.php');
+	if(isset($_POST['createSubmit'])){
+
+		$company_name = $_POST['company_name'];
+		$addr1 = $_POST['addr1'];
+		$addr2 = $_POST['addr2'] || '';
+		$city = $_POST['city'];
+		$state = $_POST['state'];
+		$zip = $_POST['zip'];
+		$company_phone = $_POST['company_phone'];
+		$company_der = $_POST['company_der'];
+		$additional_phone = $_POST['additional_phone'] || '';
+		$email = $_POST['email'];
+
+		$sql = "INSERT INTO companies(".
+			"company_name,".
+		    "addr1,".
+		    "addr2,".
+		    "city,".
+		    "state,".
+		    "zip,".
+		    "company_phone,".
+		    "company_der,".
+		    "additional_phone,".
+		    "email".
+		") VALUES (".
+			"'$company_name',".
+		    "'$addr1',".
+		    "'$addr2',".
+		    "'$city',".
+		    "'$state',".
+		    "'$zip',".
+		    "'$company_phone',".
+		    "'$company_de'r".
+		    "'$additional_phone',".
+		    "'$email',".
+		")";
+		try{
+			$result = $conn->query($sql);
+		} catch(PDOException $e){
+			echo $e->getMessage();
+		}
+	} elseif(isset($_POST['editSubmit'])){
 
 	} elseif(isset($_GET['create'])){
 ?>
@@ -21,7 +63,7 @@
 					<input id="DER" name="der" type="text" placeholder="Company DER">
 					<input type="email" id="email" placeholder="Email">
 
-					<input id="submit" class="btn btn-primary" name="submit" type="submit" value="Submit">
+					<input id="submit" class="btn btn-primary" name="createSubmit" type="submit" value="Submit">
 				</div> <!-- #leftCol -->
 				
 				<div id="rightCol" class="col-md-6"></div> <!-- #rightCol -->	
@@ -47,7 +89,7 @@
 					<input id="" name="der" type="text" placeholder="Company DER">
 					<input id="email" name="email" type="email" placeholder="Email">					
 					
-					<input id="submit" class="btn btn-primary" name="submit" type="submit" value="Submit">
+					<input id="submit" class="btn btn-primary" name="editSubmit" type="submit" value="Submit">
 				</div> <!-- #leftCol -->
 				
 				<div id="rightCol" class="col-md-6"></div> <!-- #rightCol -->	
