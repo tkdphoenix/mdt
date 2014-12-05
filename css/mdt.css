@@ -34,3 +34,6 @@ nav>ul>li>a{ color: #333; }
 #allCompanies, #allEmployees{ margin: 0 auto; }
 #allCompanies #companiesTable td,
 #checkAll{ margin-right: 10px; }
+.deleteBtn{
+
+}

@@ -1,9 +1,9 @@
 create database mobile_drug_testing;
 
 use mobile_drug_testing;
-
+drop table employees;
 create table employees(
-    id int primary key not null,
+    id int primary key not null auto_increment,
     first varchar(50) not null,
     last varchar(50) not null,
     addr1 varchar(100) not null,
@@ -11,32 +11,35 @@ create table employees(
     city varchar(50) not null,
     state varchar(2) not null,
     zip int(5) not null,
-    ssn int(9) not null,
+    phone varchar(12) not null,
+    email varchar(150) not null,
+    ssn varchar(11) not null,
     dob date not null,
-    active boolean
+    active boolean default true
 );
 
 create table companies(
-    id int primary key not null,
+    id int primary key not null auto_increment,
     company_name varchar(255) not null,
     addr1 varchar(100) not null,
     addr2 varchar(100),
     city varchar(50) not null,
     state varchar(2) not null,
     zip int(5) not null,
-    company_phone int(10) not null,
+    company_phone varchar(12) not null,
     company_der varchar(100) not null,
-    additional_phone int(10),
-    email varchar(150) not null
+    additional_phone varchar(12),
+    email varchar(150) not null,
+    active boolean not null
 );
 
 create table test_type(
-    id int primary key not null,
+    id int primary key not null auto_increment,
     name varchar(255) not null
 );
 
 create table tests(
-    id int primary key not null,
+    id int primary key not null auto_increment,
     test_name varchar(255) not null,
     company varchar(255) not null,
     number_of_tests int(4) not null,

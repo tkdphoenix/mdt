@@ -1,6 +1,62 @@
 <?php
 	include_once('inc/header.inc.php');
-	if(isset($_POST['submit'])){
+	require_once('inc/conn.inc.php');
+	if(isset($_POST['createSubmit'])){
+		// set post variables
+		$employee_name = $_POST['employee_name'];
+		$addr1 = $_POST['addr1'];
+		$addr2 = $_POST['addr2'] || '';
+		$city = $_POST['city'];
+		$state = $_POST['state'];
+		$zip = $_POST['zip'];
+		$employee_phone = $_POST['employee_phone'];
+		$email = $_POST['email'];
+
+		// SQL statement - use PDO::prepare() when possible
+		$sql = "INSERT INTO companies(first,
+			last,
+			addr1,
+			addr2,
+			city,
+			state,
+			zip,
+			phone,
+			email,
+			ssn,
+			dob) VALUES (
+			:employee_name,
+			:addr1,
+			:addr2,
+			:city,
+			:state,
+			:zip,
+			:employee_phone,
+			:email)";
+		
+		$stmt = $conn->prepare($sql);
+
+		$stmt->bindParam(':company_name', $company_name, PDO::PARAM_STR);
+		$stmt->bindParam(':addr1', $addr1, PDO::PARAM_STR);
+		$stmt->bindParam(':addr2', $addr2, PDO::PARAM_STR);
+		$stmt->bindParam(':city', $city, PDO::PARAM_STR);
+		$stmt->bindParam(':state', $state, PDO::PARAM_STR);
+		$stmt->bindParam(':zip', $zip, PDO::PARAM_STR);
+		$stmt->bindParam(':company_phone', $company_phone, PDO::PARAM_STR);
+		$stmt->bindParam(':company_der', $company_der, PDO::PARAM_STR);
+		$stmt->bindParam(':additional_phone', $additional_phone, PDO::PARAM_STR);
+		$stmt->bindParam(':email', $email, PDO::PARAM_STR);
+		// run the query to insert a new company record
+		try{
+			$stmt->execute();
+		} catch(PDOException $e){
+			echo $e->getMessage();
+			
+			echo "<br> query failed <br>";
+		}
+
+		if(!$conn){ echo "connection failed"; } else { echo "Yay, connection!<br>"; }
+
+	} elseif(isset($_POST['editSubmit'])){
 
 	} elseif(isset($_GET['create'])){
 ?>
@@ -9,7 +65,7 @@
 		<form id="employeeForm" class="form-inline container-fluid" action="?" method="post">
 			<div class="row">
 				<div id="leftCol" class="col-md-6">
-					<input id="" name="name" type="text" placeholder="Employee Name">
+					<input id="" name="employee_name" type="text" placeholder="Employee Name">
 					<input id="" name="addr1" type="text" placeholder="Employee Address 1">
 					<input id="" name="addr2" type="text" placeholder="Employee Address 2">
 					<input id="city" name="city" type="text" placeholder="City">
@@ -17,10 +73,10 @@
 					<?php include_once('inc/states.inc.php'); //#state ?>
 
 					<input id="zip" name="zip" type="number" placeholder="Zip">
-					<input id="phone" name="phone" type="tel" placeholder="Employee Phone">
+					<input id="phone" name="employee_phone" type="tel" placeholder="Employee Phone">
 					<input type="email" id="email" placeholder="Email">
 
-					<input id="submit" class="btn btn-primary" name="submit" type="submit" value="Submit">
+					<input id="submit" class="btn btn-primary" name="createSubmit" type="submit" value="Submit">
 				</div> <!-- #leftCol -->
 				
 				<div id="rightCol" class="col-md-6"></div> <!-- #rightCol -->	
@@ -34,7 +90,7 @@
 		<form id="employeeForm" class="form-inline container-fluid" action="?" method="post">
 			<div class="row">
 				<div id="leftCol" class="col-md-6">
-					<input id="" name="name" type="text" placeholder="Employee Name">
+					<input id="" name="employee_name" type="text" placeholder="Employee Name">
 					<input id="" name="addr1" type="text" placeholder="Employee Address 1">
 					<input id="" name="addr2" type="text" placeholder="Employee Address 2">
 					<input id="city" name="city" type="text" placeholder="City">
@@ -42,10 +98,10 @@
 					<?php include_once('inc/states.inc.php'); //#state ?>
 
 					<input id="zip" name="zip" type="number" placeholder="Zip">
-					<input id="" name="phone" type="tel" placeholder="Employee Phone">
+					<input id="" name="employee_phone" type="tel" placeholder="Employee Phone">
 					<input id="email" name="email" type="email" placeholder="Email">					
 					
-					<input id="submit" class="btn btn-primary" name="submit" type="submit" value="Submit">
+					<input id="submit" class="btn btn-primary" name="editSubmit" type="submit" value="Submit">
 				</div> <!-- #leftCol -->
 				
 				<div id="rightCol" class="col-md-6"></div> <!-- #rightCol -->	

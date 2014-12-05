@@ -13,8 +13,8 @@
 		<div class="col-med-10">
 			<nav>
 				<ul class="row list-unstyled list-inline">
-					<li class="col-med-2"><a href="companies.php">Home</a></li>
-					<li class="col-med-2"><a href="createCoc.php">Create CoC</a></li>
+					<li class="col-med-2"><a href="companies.php">Companies</a></li>
+					<li class="col-med-2"><a href="createCoc.php">Test Records</a></li>
 					<li class="col-med-2"><a href="employees.php">Employees</a></li>
 					<li class="col-med-2"><a href="timeRecords.php">Time Records</a></li>
 					<li class="col-med-2"><a href="payroll.php">Payroll Summary</a></li>
