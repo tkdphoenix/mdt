@@ -60,4 +60,4 @@ Thumbs.db
 *.sass-cache*
 
 *.pdf
-*/conn.inc.php
+*inc/conn.inc.php*

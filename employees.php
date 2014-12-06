@@ -1,6 +1,7 @@
 <?php
 	include_once('inc/header.inc.php');
 	require_once('inc/conn.inc.php');
+	/* create employee $_POST section *********************/
 	if(isset($_POST['createSubmit'])){
 		// set post variables
 		$employee_name = $_POST['employee_name'];
@@ -49,15 +50,61 @@
 		try{
 			$stmt->execute();
 		} catch(PDOException $e){
-			echo $e->getMessage();
-			
-			echo "<br> query failed <br>";
+			file_put_contents('PDOErrors.txt', $e->getMessage(), FILE_APPEND);
 		}
-
-		if(!$conn){ echo "connection failed"; } else { echo "Yay, connection!<br>"; }
-
+	/* END create employee $_POST section *********************/
 	} elseif(isset($_POST['editSubmit'])){
+	/* edit employee $_POST section *********************/
+		// set post variables
+		$employee_name = $_POST['employee_name'];
+		$addr1 = $_POST['addr1'];
+		$addr2 = $_POST['addr2'] || '';
+		$city = $_POST['city'];
+		$state = $_POST['state'];
+		$zip = $_POST['zip'];
+		$employee_phone = $_POST['employee_phone'];
+		$email = $_POST['email'];
 
+		// SQL statement - use PDO::prepare() when possible
+		$sql = "INSERT INTO companies(first,
+			last,
+			addr1,
+			addr2,
+			city,
+			state,
+			zip,
+			phone,
+			email,
+			ssn,
+			dob) VALUES (
+			:employee_name,
+			:addr1,
+			:addr2,
+			:city,
+			:state,
+			:zip,
+			:employee_phone,
+			:email)";
+		
+		$stmt = $conn->prepare($sql);
+
+		$stmt->bindParam(':company_name', $company_name, PDO::PARAM_STR);
+		$stmt->bindParam(':addr1', $addr1, PDO::PARAM_STR);
+		$stmt->bindParam(':addr2', $addr2, PDO::PARAM_STR);
+		$stmt->bindParam(':city', $city, PDO::PARAM_STR);
+		$stmt->bindParam(':state', $state, PDO::PARAM_STR);
+		$stmt->bindParam(':zip', $zip, PDO::PARAM_STR);
+		$stmt->bindParam(':company_phone', $company_phone, PDO::PARAM_STR);
+		$stmt->bindParam(':company_der', $company_der, PDO::PARAM_STR);
+		$stmt->bindParam(':additional_phone', $additional_phone, PDO::PARAM_STR);
+		$stmt->bindParam(':email', $email, PDO::PARAM_STR);
+		// run the query to insert a new company record
+		try{
+			$stmt->execute();
+		} catch(PDOException $e){
+			file_put_contents('PDOErrors.txt', $e->getMessage(), FILE_APPEND);
+		}
+	/* END edit employee $_POST section *********************/
 	} elseif(isset($_GET['create'])){
 ?>
 	<section id="employees" class="employees">
