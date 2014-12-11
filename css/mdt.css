@@ -34,4 +34,10 @@ nav>ul>li>a{ color: #333; }
 #allCompanies, #allEmployees{ margin: 0 auto; }
 #allCompanies #companiesTable td,
 #checkAll{ margin-right: 10px; }
-#showInactive{ float:right; }
+#showInactive, #showActive{ float:right; }
+#topNew{
+	float: left;
+	margin-right: 5px;
+}
+#lActive{ display: block; }
+#createAnother{ margin-top: 10px; }

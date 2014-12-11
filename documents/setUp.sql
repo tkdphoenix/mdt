@@ -30,7 +30,7 @@ create table companies(
     company_der varchar(100) not null,
     additional_phone varchar(12),
     email varchar(150) not null,
-    active boolean not null
+    active boolean not null default true
 );
 
 create table test_type(

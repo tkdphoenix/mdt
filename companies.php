@@ -56,8 +56,44 @@
 			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 		}
 		/* END create companies $_POST section *********************/
+		// @TODO write response to user to know that new company was added to DB
 ?>
-
+	<section id="newCompanyInfo" class="container-fluid">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-10">
+				<h1 class="center">New Company Added!</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-10">
+				<p>Company Name: <?=$company_name?></p>
+				<p>Address 1: <?=$addr1?></p>
+				<p>Address 2: <?php if(isset($addr2)){ echo $addr2; }?></p>
+				<p>City: <?=$city?></p>
+				<p>State: <?=$state?></p>
+				<p>Zip: <?=$zip?></p>
+				<p>Company Phone: <?=$company_phone?></p>
+				<p>Additional Phone: <?=$additional_phone?></p>
+				<p>Company DER: <?=$company_der?></p>
+				<p>Email: <?=$email?></p>
+				<p>Active: Yes</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-10">
+				<a class="btn btn-primary" href="companies.php">Return to Companies List</a>
+			</div>
+		</div>
+		<div id="createAnother" class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-10">
+				<a href="companies.php?create=true" class="btn btn-default">Create New Company</a>
+			</div>
+		</div>
+	</section>
 <?php
 	} elseif(isset($_POST['editSubmit'])){
 		/* edit companies $_POST section *********************/
@@ -73,6 +109,11 @@
 		$company_der = $_POST['company_der'];
 		$additional_phone = ($_POST['additional_phone']) ? $_POST['additional_phone'] : '';
 		$email = $_POST['email'];
+		if(isset($_POST['active']) && $_POST['active'] == 'on'){
+			$active = 1;
+		} else {
+			$active = 0;
+		}
 
 		// SQL statement - use PDO::prepare() when possible
 		$sql = "UPDATE companies SET company_name=:company_name,
@@ -82,9 +123,10 @@
 					state=:state,
 					zip=:zip,
 					company_phone=:company_phone,
-					company_der=:company_der,
 					additional_phone=:additional_phone,
-					email=:email
+					company_der=:company_der,
+					email=:email,
+					active=:active
 					WHERE id=:id";
 		
 		$stmt = $conn->prepare($sql);
@@ -99,18 +141,56 @@
 		$stmt->bindParam(':additional_phone', $additional_phone, PDO::PARAM_STR);
 		$stmt->bindParam(':company_der', $company_der, PDO::PARAM_STR);
 		$stmt->bindParam(':email', $email, PDO::PARAM_STR);
+		$stmt->bindParam(':active', $active, PDO::PARAM_STR);
 		$stmt->bindParam(':id', $id, PDO::PARAM_STR);
-		// run the query to insert a new company record
+		// run the query to update a company record
 		try{
 			$stmt->execute();
 		} catch(PDOException $e){
 			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 		}
+		// @TODO write response to let user know info was updated
+?>
+	<section class="container-fluid">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-10">
+				<h1>Company Updated</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-10">
+				<p>Company Name: <?=$company_name?></p>
+				<p>Address 1: <?=$addr1?></p>
+				<p>Address 2: <?php if(isset($addr2)){ echo $addr2; }?></p>
+				<p>City: <?=$city?></p>
+				<p>State: <?=$state?></p>
+				<p>Zip: <?=$zip?></p>
+				<p>Company Phone: <?=$company_phone?></p>
+				<p>Additional Phone: <?=$additional_phone?></p>
+				<p>Company DER: <?=$company_der?></p>
+				<p>Email: <?=$email?></p>
+				<p>Active: Yes</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-10"><a class="btn btn-primary" href="companies.php">Return to Companies List</a></div>
+		</div>
+		<div id="createAnother" class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-10">
+				<a href="companies.php?create=true" class="btn btn-default">Create New Company</a>
+			</div>
+		</div>
+	</section>
+<?php
 	/* END edit companies $_POST section *********************/
 	} elseif(isset($_GET['create'])){
 	/* create companies page section *********************/
 ?>
-	<section id="companies" class="companies">
+	<section id="companies" class="companies container-fluid">
 		<h1 class="text-center">Create a New Company</h1>
 		<form id="form1" class="form-inline container-fluid" action="?" method="post">
 			<div class="row">
@@ -144,7 +224,7 @@ $q = $conn->query($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
 $r = $q->fetch();
 ?>
-	<section id="editCompany" class="companies">
+	<section id="editCompany" class="companies container-fluid">
 		<h1 class="text-center">Edit a Company</h1>
 		<form id="form1" class="form-inline container-fluid" action="?" method="post">
 			<div class="row">
@@ -162,6 +242,7 @@ $r = $q->fetch();
 					<input id="company_der" name="company_der" type="text" placeholder="Company DER" value="<?php if(isset($r['company_der'])){ echo $r['company_der'];}?>">
 					<input id="email" name="email" type="email" placeholder="Email" value="<?php if(isset($r['email'])){ echo $r['email'];}?>">
 					<input name="id" type="hidden" value="<?=$id?>">
+					<label id="lActive" for="active"><input id="active" name="active" type="checkbox" <?php if($r['active'] == "1"){ echo "checked"; } ?>> Active</label>
 					
 					<input id="submit" class="btn btn-primary" name="editSubmit" type="submit" value="Submit">
 				</div> <!-- #leftCol -->
@@ -171,11 +252,100 @@ $r = $q->fetch();
 		</form>
 <?php
 /* END edit companies page section *********************/
+} elseif(isset($_POST['inactivateSubmit'])){
+/* show inactivate companies page (code to inactivate selected companies) section ********************/
+	$sql = "UPDATE companies SET active = false WHERE id=:id";
+	$stmt = $conn->prepare($sql);
+	
+	$list = $_POST['iList'];
+	$listArray = explode(",", $list);
+
+	foreach($listArray as $id){
+		$stmt->bindParam(':id', $id, PDO::PARAM_STR);
+		// run the query to make a company inactive
+		try{
+			$stmt->execute();
+		} catch(PDOException $e){
+			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+		}
+	} // END foreach()
+	// @TODO display message for user to know that "X" companies were inactivated
+?>
+	<section class="container-fluid">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-11">
+				<p>The following companies were inactivated:</p>	
+			</div>
+		</div>
+		<table id="inactivatedTable" class="table table-hover table-responsive">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Address</th>
+					<th>City</th>
+					<th>State</th>
+					<th>Zip Code</th>
+					<th>Phone</th>
+					<th>Additional Phone</th>
+					<th>DER</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+			<tbody>
+<?php
+	$sql = "SELECT * FROM companies WHERE id IN (". $list .") ORDER BY company_name";
+
+	$stmt = $conn->prepare($sql);
+	// $stmt->bindParam(':list', $list, PDO::PARAM_INT); 
+	// run the query to list all companies that just became inactive
+	try{
+		$stmt->execute();
+		$companies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	} catch(PDOException $e){
+		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+	}
+
+	foreach($companies as $c){
+?>
+				<tr>
+					<td><?=htmlspecialchars("$c[company_name]")?></td>
+					<td><?=htmlspecialchars("$c[addr1]")?>
+					<?php if(isset($c['addr2'])){ ?>
+					<br><?=htmlspecialchars("$c[addr2]")?>
+					<?php } ?></td>
+					<td><?=htmlspecialchars("$c[city]")?></td>
+					<td><?=htmlspecialchars("$c[state]")?></td>
+					<td><?=htmlspecialchars("$c[zip]")?></td>
+					<td><a href="tel:<?=htmlspecialchars("$c[company_phone]")?>" class="phoneLink"><?=htmlspecialchars("$c[company_phone]")?></a></td>
+					<?php if(isset($c['additional_phone'])){ ?>
+					<td><a href="tel:<?=htmlspecialchars("$c[additional_phone]")?>" class="phoneLink"><?=htmlspecialchars("$c[additional_phone]")?></a></td>
+					<?php } else { ?> &nbsp; <?php } ?>
+					<td><?=htmlspecialchars("$c[company_der]")?></td>
+					<td><a href="mailto:<?=htmlspecialchars("$c[email]")?>" class="emailLink"><?=htmlspecialchars("$c[email]")?></a></td>
+				</tr>
+<?php
+	}
+?>
+			</tbody>
+		</table>
+	</section>
+	<div class="row">
+		<div class="col-md-2 col-md-offset-1">
+			<a class="btn btn-primary" href="companies.php">Return to Companies List</a>
+		</div>
+		<div class="col-md-9">
+			<a href="companies.php?create=true" class="btn btn-default">Create New Company</a>	
+		</div>
+	</div>
+
+
+<?php
+/* END inactivate companies page (code to inactivate selected companies) section *********************/
 } elseif(isset($_GET['inactive'])){
 /* show inactive companies page section *********************/
-
-	$sql = "SELECT * FROM companies";
-	// run the query to insert a new company record
+	$sql = "SELECT * FROM companies ORDER BY company_name";
+	// run the query to get all company records
 	try{
 		$q = $conn->query($sql);
 	} catch(PDOException $e){
@@ -183,7 +353,7 @@ $r = $q->fetch();
 	}
 	$companies = $q->fetchAll(PDO::FETCH_ASSOC);
 ?>
-	<section id="allCompanies">
+	<section id="allCompanies" class="container-fluid">
 		<div class="row">
 			<div class="col-md-2">
 				<a href="companies.php?inactive=true" id="showInactive" class="btn btn-primary showInactive">Show Inactive</a>
@@ -193,10 +363,13 @@ $r = $q->fetch();
 			</div>
 			<div class="col-md-2">
 				<a id="topNew" class="btn btn-primary addNew" href="companies.php?create=true">Add New</a>
-				<input id="topInactive" type="button" class="btn btn-danger inactivate" value="Inactivate">
+				<form id="inactivateForm" action="companies.php?inactivate=true" method="post">
+					<input id="iList" name="iList" type="hidden" value="">
+					<input id="topInactive" name="inactivateSubmit" type="submit" class="btn btn-danger inactivate" value="Inactivate">
+				</form>
 			</div>
 		</div> <!-- .row -->
-		<table id="companiesTable" class="table table-hover">
+		<table id="companiesTable" class="table table-hover table-responsive">
 			<thead>
 				<tr>
 					<th><label for="checkAll"><input id="checkAll" name="checkAll" type="checkbox"><small>Check All</small></label></th>
@@ -217,9 +390,12 @@ $r = $q->fetch();
 				<?php
 				// iterate over the $companies results and display them in the table
 				foreach($companies as $c){
-				?>
-				<tr>
-					<td><input name="toRemove" type="checkbox"></td>
+					if($c['active'] == "0"){
+						echo "<tr class='warning'>";
+					} else {
+						echo "<tr>";
+					} ?>
+					<td><input id="<?=htmlspecialchars("$c[id]")?>" class="toRemove" name="toRemove" type="checkbox"></td>
 					<td><?=htmlspecialchars("$c[company_name]")?></td>
 					<td><?=htmlspecialchars("$c[addr1]")?>
 					<?php if(isset($c['addr2'])){ ?>
@@ -245,7 +421,7 @@ $r = $q->fetch();
 			<div class="col-md-10"></div>
 			<div class="col-md-2">
 				<a id="bottomNew" class="btn btn-primary addNew" href="companies.php?create=true">Add New</a>
-				<input id="bottomInactive" type="button" class="btn btn-danger inactivate" value="Inactivate">
+				<input id="bottomInactive" type="button" class="btn btn-danger inactivate" value="Inactivate">	
 			</div>
 		</div> <!-- .row -->
 	</section>
@@ -253,8 +429,8 @@ $r = $q->fetch();
 /* END show inactive companies page section *********************/
 } else { 
 /* entire list of active companies page section *********************/
-	$sql = "SELECT * FROM companies WHERE active=true";
-	// run the query to insert a new company record
+	$sql = "SELECT * FROM companies WHERE active=true ORDER BY company_name";
+	// run the query to get all company records that are active companies
 	try{
 		$q = $conn->query($sql);
 	} catch(PDOException $e){
@@ -262,7 +438,7 @@ $r = $q->fetch();
 	}
 	$companies = $q->fetchAll(PDO::FETCH_ASSOC);
 ?>
-	<section id="allCompanies">
+	<section id="allCompanies" class="container-fluid">
 		<div class="row">
 			<div class="col-md-2">
 				<a href="companies.php?inactive=true" id="showInactive" class="btn btn-primary showInactive">Show Inactive</a>
@@ -272,10 +448,13 @@ $r = $q->fetch();
 			</div>
 			<div class="col-md-2">
 				<a id="topNew" class="btn btn-primary addNew" href="companies.php?create=true">Add New</a>
-				<input id="topInactive" type="button" class="btn btn-danger inactivate" value="Inactivate">
+				<form id="inactivateForm" action="companies.php" method="post">
+					<input id="iList" name="iList" type="hidden" value="">
+					<input id="topInactive" name="inactivateSubmit" type="submit" class="btn btn-danger inactivate" value="Inactivate">
+				</form>
 			</div>
 		</div> <!-- .row -->
-		<table id="companiesTable" class="table table-hover">
+		<table id="companiesTable" class="table table-hover table-responsive">
 			<thead>
 				<tr>
 					<th><label for="checkAll"><input id="checkAll" name="checkAll" type="checkbox"><small>Check All</small></label></th>
@@ -298,7 +477,7 @@ $r = $q->fetch();
 				foreach($companies as $c){
 				?>
 				<tr>
-					<td><input name="toRemove" type="checkbox"></td>
+					<td><input id="<?=htmlspecialchars("$c[id]")?>" class="toRemove" name="toRemove" type="checkbox"></td>
 					<td><?=htmlspecialchars("$c[company_name]")?></td>
 					<td><?=htmlspecialchars("$c[addr1]")?>
 					<?php if(isset($c['addr2'])){ ?>
