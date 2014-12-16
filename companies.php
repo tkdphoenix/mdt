@@ -195,20 +195,20 @@
 		<form id="form1" class="form-inline container-fluid" action="?" method="post">
 			<div class="row">
 				<div id="leftCol" class="col-md-6">
-					<input id="" name="company_name" type="text" placeholder="Company Name">
-					<input id="" name="addr1" type="text" placeholder="Company Address 1">
-					<input id="" name="addr2" type="text" placeholder="Company Address 2">
-					<input id="city" name="city" type="text" placeholder="City">
+					<input id="" class="form-control" name="company_name" type="text" placeholder="Company Name">
+					<input id="" class="form-control" name="addr1" type="text" placeholder="Company Address 1">
+					<input id="" class="form-control" name="addr2" type="text" placeholder="Company Address 2">
+					<input id="city" class="form-control" name="city" type="text" placeholder="City">
 					
 					<?php include_once('inc/states.inc.php'); //#state ?>
 
-					<input id="zip" name="zip" type="number" placeholder="Zip">
-					<input id="phone" name="company_phone" type="tel" placeholder="Company Phone">
-					<input id="additional_phone" name="additional_phone" type="tel" placeholder="Additional Phone">
-					<input id="DER" name="company_der" type="text" placeholder="Company DER">
-					<input id="email" name="email" type="email" placeholder="Email">
+					<input id="zip" class="form-control" name="zip" type="number" placeholder="Zip">
+					<input id="phone" class="form-control" name="company_phone" type="tel" placeholder="Company Phone">
+					<input id="additional_phone" class="form-control" name="additional_phone" type="tel" placeholder="Additional Phone">
+					<input id="DER" class="form-control" name="company_der" type="text" placeholder="Company DER">
+					<input id="email" class="form-control" name="email" type="email" placeholder="Email">
 
-					<input id="submit" class="btn btn-primary" name="createSubmit" type="submit" value="Submit">
+					<input id="submit" class="form-control btn btn-primary" name="createSubmit" type="submit" value="Submit">
 				</div> <!-- #leftCol -->
 				
 				<div id="rightCol" class="col-md-6"></div> <!-- #rightCol -->	
@@ -229,22 +229,22 @@ $r = $q->fetch();
 		<form id="form1" class="form-inline container-fluid" action="?" method="post">
 			<div class="row">
 				<div id="leftCol" class="col-md-6">
-					<input id="company_name" name="company_name" type="text" placeholder="Company Name" value="<?php if(isset($r['company_name'])){ echo $r['company_name'];}?>">
-					<input id="addr1" name="addr1" type="text" placeholder="Company Address 1" value="<?php if(isset($r['addr1'])){ echo $r['addr1'];}?>">
-					<input id="addr2" name="addr2" type="text" placeholder="Company Address 2" value="<?php if(isset($r['addr2'])){ echo $r['addr2'];}?>">
-					<input id="city" name="city" type="text" placeholder="City" value="<?php if(isset($r['city'])){ echo $r['city'];}?>">
+					<input id="company_name" class="form-control" name="company_name" type="text" placeholder="Company Name" value="<?php if(isset($r['company_name'])){ echo $r['company_name'];}?>">
+					<input id="addr1" class="form-control" name="addr1" type="text" placeholder="Company Address 1" value="<?php if(isset($r['addr1'])){ echo $r['addr1'];}?>">
+					<input id="addr2" class="form-control" name="addr2" type="text" placeholder="Company Address 2" value="<?php if(isset($r['addr2'])){ echo $r['addr2'];}?>">
+					<input id="city" class="form-control" name="city" type="text" placeholder="City" value="<?php if(isset($r['city'])){ echo $r['city'];}?>">
 					
 					<?php include_once('inc/states.inc.php'); //#state ?>
 
-					<input id="zip" name="zip" type="number" placeholder="Zip" value="<?php if(isset($r['zip'])){ echo $r['zip'];}?>">
-					<input id="company_phone" name="company_phone" type="tel" placeholder="Company Phone" value="<?php if(isset($r['company_phone'])){ echo $r['company_phone'];}?>">
-					<input id="additional_phone" name="additional_phone" type="tel" placeholder="Additional Phone" value="<?php if(isset($r['additional_phone'])){ echo $r['additional_phone'];}?>">
-					<input id="company_der" name="company_der" type="text" placeholder="Company DER" value="<?php if(isset($r['company_der'])){ echo $r['company_der'];}?>">
-					<input id="email" name="email" type="email" placeholder="Email" value="<?php if(isset($r['email'])){ echo $r['email'];}?>">
-					<input name="id" type="hidden" value="<?=$id?>">
+					<input id="zip" class="form-control" name="zip" type="number" placeholder="Zip" value="<?php if(isset($r['zip'])){ echo $r['zip'];}?>">
+					<input id="company_phone" class="form-control" name="company_phone" type="tel" placeholder="Company Phone" value="<?php if(isset($r['company_phone'])){ echo $r['company_phone'];}?>">
+					<input id="additional_phone" class="form-control" name="additional_phone" type="tel" placeholder="Additional Phone" value="<?php if(isset($r['additional_phone'])){ echo $r['additional_phone'];}?>">
+					<input id="company_der" class="form-control" name="company_der" type="text" placeholder="Company DER" value="<?php if(isset($r['company_der'])){ echo $r['company_der'];}?>">
+					<input id="email" class="form-control" name="email" type="email" placeholder="Email" value="<?php if(isset($r['email'])){ echo $r['email'];}?>">
+					<input name="id" class="form-control" type="hidden" value="<?=$id?>">
 					<label id="lActive" for="active"><input id="active" name="active" type="checkbox" <?php if($r['active'] == "1"){ echo "checked"; } ?>> Active</label>
 					
-					<input id="submit" class="btn btn-primary" name="editSubmit" type="submit" value="Submit">
+					<input id="submit" class="form-control btn btn-primary" name="editSubmit" type="submit" value="Submit">
 				</div> <!-- #leftCol -->
 				
 				<div id="rightCol" class="col-md-6"></div> <!-- #rightCol -->	
@@ -363,7 +363,7 @@ $r = $q->fetch();
 			</div>
 			<div class="col-md-2">
 				<a id="topNew" class="btn btn-primary addNew" href="companies.php?create=true">Add New</a>
-				<form id="inactivateForm" action="companies.php?inactivate=true" method="post">
+				<form id="inactivateForm" action="?" method="post">
 					<input id="iList" name="iList" type="hidden" value="">
 					<input id="topInactive" name="inactivateSubmit" type="submit" class="btn btn-danger inactivate" value="Inactivate">
 				</form>

@@ -1,5 +1,5 @@
 <!-- select element for HTML to include all states -->
-			<select name="state" id="state">
+			<select name="state" id="state" class="form-control">
 				<option value="" selected="selected">Select a State</option>
 				<option value="AL">Alabama</option>
 				<option value="AK">Alaska</option>

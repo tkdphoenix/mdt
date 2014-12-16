@@ -105,10 +105,11 @@ $(function(){
 	 *	the correct button. with the correct text.
 	 */
 	var urlVars = getUrlVars();
+	var pathname = window.location.pathname;
 	if(urlVars.inactive){
-		$('#showInactive').prop({'href': 'companies.php'}).text('Show Active Only');
+		$('#showInactive').prop({'href': pathname}).text('Show Active Only');
 	} else {
-		$('#showInactive').prop({'href': 'companies.php?inactive=true'}).text('Show Inactive');
+		$('#showInactive').prop({'href': pathname+'?inactive=true'}).text('Show Inactive');
 	}
 
 	/**
@@ -138,14 +139,16 @@ $(function(){
 	// if the inactivate button is clicked, confirm that a checkbox 
 	// has been clicked
 	$('#topInactive').on('click', function(e){
+		var theBtn = $(this);
 		if($('.toRemove').is(':checked')){
-			alert('yay!');
-			// e.stopPropagation();
-			// $(this).prop('disabled', 'disabled');
+			e.stopPropagation();
+			theBtn.prop('disabled', false);
 		} else {
-			alert('boo!');
-			$(this).prop('disabled', 'disabled');
+			theBtn.prop('disabled', 'disabled');
 			$('#bottomInactive').prop('disabled', 'disabled');
 		}
 	});
+
+	// Datepicker from jqueryUI
+	$('#testDate').datepicker();
 });

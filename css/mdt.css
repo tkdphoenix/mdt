@@ -18,19 +18,21 @@ nav>ul>li{
 }
 nav>ul>li>a{ color: #333; }
 .companies h1, #allCompanies h1{ clear: both; }
-#form1, #employeeForm{
+#form1{
 	max-width: 500px;
 	margin: 0 auto;
 }
-#form1 input, #form1 #state, 
-#employeeForm input, #employeeForm #state{ margin-bottom: 10px; }
-#form1 #state,
-#employeeForm #state{ width: 155px; }
-#form1 #explain,
-#employeeForm #explain{ margin-left: 5px; }
-#form1 #submit
-#employeeForm #submit{ margin-top: 20px; }
-
+#form1 input,
+#form1 select{
+	width: 155px;
+	margin-top: 15px;
+}
+#form1 #explain{ margin-left: 5px; }
+#form1 #submit{ margin-top: 20px; }
+#form1 label {
+	width: 130%;
+	max-width:140%;
+}
 #allCompanies, #allEmployees{ margin: 0 auto; }
 #allCompanies #companiesTable td,
 #checkAll{ margin-right: 10px; }

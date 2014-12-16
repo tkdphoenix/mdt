@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Create Company</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery-ui.min.css">
 	<link rel="stylesheet" href="css/mdt.css">
 </head>
 <body>
@@ -14,7 +15,7 @@
 			<nav>
 				<ul class="row list-unstyled list-inline">
 					<li class="col-med-2"><a href="companies.php">Companies</a></li>
-					<li class="col-med-2"><a href="createCoc.php">Test Records</a></li>
+					<li class="col-med-2"><a href="testRecords.php">Test Records</a></li>
 					<li class="col-med-2"><a href="employees.php">Employees</a></li>
 					<li class="col-med-2"><a href="timeRecords.php">Time Records</a></li>
 					<li class="col-med-2"><a href="payroll.php">Payroll Summary</a></li>

@@ -33,9 +33,10 @@ create table companies(
     active boolean not null default true
 );
 
-create table test_type(
+create table test_types(
     id int primary key not null auto_increment,
-    name varchar(255) not null
+    name varchar(255) not null,
+    active boolean not null default true
 );
 
 create table tests(
@@ -50,7 +51,8 @@ create table tests(
     rate decimal(10,2) not null,
     drive_time int(3),
     wait_time int(3),
-    comments blob
+    comments blob,
+    active boolean not null default true
 );
 
 create table login(
