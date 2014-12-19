@@ -46,7 +46,7 @@ create table tests(
     number_of_tests int(4) not null,
     number_bat_tests int(4),
     number_ua_tests int(4),
-    technician_name varchar(100) not null,
+    tech_id int not null,
     test_date date not null,
     rate decimal(10,2) not null,
     drive_time int(3),

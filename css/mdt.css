@@ -30,7 +30,7 @@ nav>ul>li>a{ color: #333; }
 #form1 #explain{ margin-left: 5px; }
 #form1 #submit{ margin-top: 20px; }
 #form1 label {
-	width: 130%;
+	width: 140%;
 	max-width:140%;
 }
 #allCompanies, #allEmployees{ margin: 0 auto; }

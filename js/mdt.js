@@ -150,5 +150,15 @@ $(function(){
 	});
 
 	// Datepicker from jqueryUI
-	$('#testDate').datepicker();
+	// if there is no native date picker, display the jQuery UI datepicker
+	if(!Modernizr.inputtypes.date){
+		$('#testDate').datepicker({
+			maxDate: "0",
+			dateFormat: "yy-mm-dd"
+		});		
+	}
+
+
+
+
 });

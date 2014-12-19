@@ -38,7 +38,6 @@
 					:email)";
 		
 		$stmt = $conn->prepare($sql);
-
 		$stmt->bindParam(':company_name', $company_name, PDO::PARAM_STR);
 		$stmt->bindParam(':addr1', $addr1, PDO::PARAM_STR);
 		$stmt->bindParam(':addr2', $addr2, PDO::PARAM_STR);
@@ -241,7 +240,7 @@ $r = $q->fetch();
 					<input id="additional_phone" class="form-control" name="additional_phone" type="tel" placeholder="Additional Phone" value="<?php if(isset($r['additional_phone'])){ echo $r['additional_phone'];}?>">
 					<input id="company_der" class="form-control" name="company_der" type="text" placeholder="Company DER" value="<?php if(isset($r['company_der'])){ echo $r['company_der'];}?>">
 					<input id="email" class="form-control" name="email" type="email" placeholder="Email" value="<?php if(isset($r['email'])){ echo $r['email'];}?>">
-					<input name="id" class="form-control" type="hidden" value="<?=$id?>">
+					<input name="id" type="hidden" value="<?=$id?>">
 					<label id="lActive" for="active"><input id="active" name="active" type="checkbox" <?php if($r['active'] == "1"){ echo "checked"; } ?>> Active</label>
 					
 					<input id="submit" class="form-control btn btn-primary" name="editSubmit" type="submit" value="Submit">
