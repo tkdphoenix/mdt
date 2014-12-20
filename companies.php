@@ -431,7 +431,8 @@ $r = $q->fetch();
 	$sql = "SELECT * FROM companies WHERE active=true ORDER BY company_name";
 	// run the query to get all company records that are active companies
 	try{
-		$q = $conn->query($sql);
+		$q = $conn->prepare($sql);
+		$q->execute();
 	} catch(PDOException $e){
 		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
