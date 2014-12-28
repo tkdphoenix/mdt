@@ -219,8 +219,9 @@
 /* edit companies page section *********************/
 $id = htmlspecialchars($_GET['id']);
 $sql = "SELECT * FROM companies WHERE id=$id";
-$q = $conn->query($sql);
+$q = $conn->prepare($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
+$q->execute();
 $r = $q->fetch();
 ?>
 	<section id="editCompany" class="companies container-fluid">
@@ -346,7 +347,8 @@ $r = $q->fetch();
 	$sql = "SELECT * FROM companies ORDER BY company_name";
 	// run the query to get all company records
 	try{
-		$q = $conn->query($sql);
+		$q = $conn->prepare($sql);
+		$q->execute();
 	} catch(PDOException $e){
 		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
