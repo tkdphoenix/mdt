@@ -1,5 +1,5 @@
 <?php
-	include_once('inc/header.inc.php');
+	include_once('inc/common.inc.php');
 	require_once('inc/conn.inc.php');
 	if(isset($_POST['createSubmit'])){
 		/* create companies $_POST section *********************/
@@ -56,6 +56,7 @@
 		}
 		/* END create companies $_POST section *********************/
 		// @TODO write response to user to know that new company was added to DB
+		showHeader("Create a  Company");
 ?>
 	<section id="newCompanyInfo" class="container-fluid">
 		<div class="row">
@@ -149,6 +150,7 @@
 			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 		}
 		// @TODO write response to let user know info was updated
+		showHeader('Edit a Company');
 ?>
 	<section class="container-fluid">
 		<div class="row">
@@ -188,6 +190,7 @@
 	/* END edit companies $_POST section *********************/
 	} elseif(isset($_GET['create'])){
 	/* create companies page section *********************/
+		showHeader('Create Company');
 ?>
 	<section id="companies" class="companies container-fluid">
 		<h1 class="text-center">Create a New Company</h1>
@@ -206,8 +209,11 @@
 					<input id="additional_phone" class="form-control" name="additional_phone" type="tel" placeholder="Additional Phone">
 					<input id="DER" class="form-control" name="company_der" type="text" placeholder="Company DER">
 					<input id="email" class="form-control" name="email" type="email" placeholder="Email">
-
-					<input id="submit" class="form-control btn btn-primary" name="createSubmit" type="submit" value="Submit">
+					
+					<div class="row">
+						<input id="submit" class="form-control btn btn-primary col-md-6" name="createSubmit" type="submit" value="Submit">
+						<a id="cancelBtn" class="form-control btn btn-default col-md-6" href="companies.php">Cancel</a>
+					</div> <!-- END .row -->
 				</div> <!-- #leftCol -->
 				
 				<div id="rightCol" class="col-md-6"></div> <!-- #rightCol -->	
@@ -223,6 +229,7 @@ $q = $conn->prepare($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
 $q->execute();
 $r = $q->fetch();
+showHeader('Edit a Company');
 ?>
 	<section id="editCompany" class="companies container-fluid">
 		<h1 class="text-center">Edit a Company</h1>
@@ -244,7 +251,10 @@ $r = $q->fetch();
 					<input name="id" type="hidden" value="<?=$id?>">
 					<label id="lActive" for="active"><input id="active" name="active" type="checkbox" <?php if($r['active'] == "1"){ echo "checked"; } ?>> Active</label>
 					
-					<input id="submit" class="form-control btn btn-primary" name="editSubmit" type="submit" value="Submit">
+					<div class="row">
+						<input id="submit" class="form-control btn btn-primary col-md-6" name="editSubmit" type="submit" value="Submit">
+						<a id="cancelBtn" class="form-control btn btn-default col-md-6" href="companies.php">Cancel</a>
+					</div> <!-- END .row -->
 				</div> <!-- #leftCol -->
 				
 				<div id="rightCol" class="col-md-6"></div> <!-- #rightCol -->	
@@ -269,7 +279,7 @@ $r = $q->fetch();
 			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 		}
 	} // END foreach()
-	// @TODO display message for user to know that "X" companies were inactivated
+	showHeader('Inactivate Companies');
 ?>
 	<section class="container-fluid">
 		<div class="row">
@@ -338,8 +348,6 @@ $r = $q->fetch();
 			<a href="companies.php?create=true" class="btn btn-default">Create New Company</a>	
 		</div>
 	</div>
-
-
 <?php
 /* END inactivate companies page (code to inactivate selected companies) section *********************/
 } elseif(isset($_GET['inactive'])){
@@ -353,6 +361,7 @@ $r = $q->fetch();
 		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
 	$companies = $q->fetchAll(PDO::FETCH_ASSOC);
+	showHeader('All Companies');
 ?>
 	<section id="allCompanies" class="container-fluid">
 		<div class="row">
@@ -439,6 +448,7 @@ $r = $q->fetch();
 		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
 	$companies = $q->fetchAll(PDO::FETCH_ASSOC);
+	showHeader('All Companies');
 ?>
 	<section id="allCompanies" class="container-fluid">
 		<div class="row">

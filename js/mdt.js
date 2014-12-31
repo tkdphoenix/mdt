@@ -135,7 +135,9 @@ $(function(){
 		$('#topInactive').click();
 	});
 
-	/* form validation *****************************************/
+	/* @TODO form validation *****************************************/
+
+	
 	// if the inactivate button is clicked, confirm that a checkbox 
 	// has been clicked
 	$('#topInactive').on('click', function(e){

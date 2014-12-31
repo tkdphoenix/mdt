@@ -1,5 +1,5 @@
 <?php
-	include_once('inc/header.inc.php');
+	include_once('inc/common.inc.php');
 	require_once('inc/conn.inc.php');
 	if(isset($_POST['createSubmit'])){
 		/* create employees $_POST section *********************/
@@ -13,7 +13,7 @@
 		$zip = $_POST['zip'];
 		$phone = $_POST['phone'];
 		$email = $_POST['email'];
-		$ssn = $_POST['ssn'];
+		$batId = $_POST['batId'];
 		$dob = $_POST['dob'];
 
 		// SQL statement - use PDO::prepare() when possible
@@ -26,7 +26,7 @@
 			zip,
 			phone,
 			email,
-			ssn,
+			bat_id,
 			dob) VALUES (
 			:first,
 			:last,
@@ -37,7 +37,7 @@
 			:zip,
 			:phone,
 			:email,
-			:ssn,
+			:batId,
 			:dob)";
 		
 		$stmt = $conn->prepare($sql);
@@ -51,7 +51,7 @@
 		$stmt->bindParam(':zip', $zip, PDO::PARAM_STR);
 		$stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
 		$stmt->bindParam(':email', $email, PDO::PARAM_STR);
-		$stmt->bindParam(':ssn', $ssn, PDO::PARAM_STR);
+		$stmt->bindParam(':batId', $batId, PDO::PARAM_STR);
 		$stmt->bindParam(':dob', $dob, PDO::PARAM_STR);
 		// run the query to insert a new employee record
 		try{
@@ -60,7 +60,7 @@
 			file_put_contents('PDOErrors.txt', $e->getMessage(), FILE_APPEND);
 		}
 		/* END create employees $_POST section *********************/
-		// @TODO write response to user to know that new employee was added to DB
+		showHeader("Create an Employee Record");
 ?>
 	<section id="newEmployeeInfo" class="container-fluid">
 		<div class="row">
@@ -80,6 +80,7 @@
 				<p>Zip: <?=$zip?></p>
 				<p>Employee Phone: <?=$phone?></p>
 				<p>Email: <?=$email?></p>
+				<p>Bat ID: <?=$batId?></p>
 				<p>Active: Yes</p>
 			</div>
 		</div>
@@ -110,7 +111,7 @@
 		$zip = $_POST['zip'];
 		$phone = $_POST['phone'];
 		$email = $_POST['email'];
-		$ssn = $_POST['ssn'];
+		$batId = $_POST['batId'];
 		$dob = $_POST['dob'];
 		if(isset($_POST['active']) && $_POST['active'] == 'on'){
 			$active = 1;
@@ -128,7 +129,7 @@
 					zip=:zip,
 					phone=:phone,
 					email=:email,
-					ssn=:ssn,
+					bat_id=:batId,
 					dob=:dob,
 					active=:active
 					WHERE id=:id";
@@ -144,7 +145,7 @@
 		$stmt->bindParam(':zip', $zip, PDO::PARAM_STR);
 		$stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
 		$stmt->bindParam(':email', $email, PDO::PARAM_STR);
-		$stmt->bindParam(':ssn', $ssn, PDO::PARAM_STR);
+		$stmt->bindParam(':batId', $batId, PDO::PARAM_STR);
 		$stmt->bindParam(':dob', $dob, PDO::PARAM_STR);
 		$stmt->bindParam(':active', $active, PDO::PARAM_STR);
 		$stmt->bindParam(':id', $id, PDO::PARAM_STR);
@@ -154,7 +155,7 @@
 		} catch(PDOException $e){
 			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 		}
-		// @TODO write response to let user know info was updated
+		showHeader("Edit an Employee Record");
 ?>
 	<section class="container-fluid">
 		<div class="row">
@@ -175,7 +176,7 @@
 				<p>Zip: <?=$zip?></p>
 				<p>Employee Phone: <?=$phone?></p>
 				<p>Email: <?=$email?></p>
-				<p>SSN: <?=$ssn?></p>
+				<p>Bat ID: <?=$batId?></p>
 				<p>DOB: <?=$dob?></p>
 				<p>Active: Yes</p>
 			</div>
@@ -195,6 +196,7 @@
 	/* END edit employees $_POST section *********************/
 	} elseif(isset($_GET['create'])){
 	/* create employees page section *********************/
+		showHeader("Create an Employee Record");
 ?>
 	<section id="employees" class="employees container-fluid">
 		<h1 class="text-center">Create a New Employee Record</h1>
@@ -210,11 +212,13 @@
 					<input id="zip" name="zip" class="form-control" type="number" placeholder="Zip">
 					<input id="phone" name="phone" class="form-control" type="tel" placeholder="Employee Phone">
 					<input id="email" name="email" class="form-control" type="email" placeholder="Email">
-					<input id="ssn" name="ssn" class="form-control" type="number" placeholder="SSN">
+					<input id="batId" name="batId" class="form-control" type="number" placeholder="Bat ID">
 					<input id="dob" name="dob" class="form-control" type="date" placeholder="DOB">
 
-					<input id="submit" class="form-control btn btn-primary" name="createSubmit" type="submit" value="Submit">
-				</div> <!-- #leftCol -->
+					<div class="row">
+						<input id="submit" class="form-control btn btn-primary col-md-6" name="createSubmit" type="submit" value="Submit">
+						<a id="cancelBtn" class="form-control btn btn-default col-md-6" href="employees.php">Cancel</a>
+					</div> <!-- END .row -->				</div> <!-- #leftCol -->
 				
 				<div id="rightCol" class="col-md-6"></div> <!-- #rightCol -->	
 			</div> <!-- .row -->
@@ -228,6 +232,7 @@ $sql = "SELECT * FROM employees WHERE id=$id";
 $q = $conn->query($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
 $r = $q->fetch();
+showHeader("Edit an Employee Record");
 ?>
 	<section id="editEmployee" class="employees container-fluid">
 		<h1 class="text-center">Edit an Employee Record</h1>
@@ -245,17 +250,21 @@ $r = $q->fetch();
 					<input id="zip" name="zip" class="form-control" type="number" placeholder="Zip" value="<?php if(isset($r['zip'])){ echo $r['zip'];}?>">
 					<input id="phone" name="phone" class="form-control" type="tel" placeholder="Employee Phone" value="<?php if(isset($r['phone'])){ echo $r['phone'];}?>">
 					<input id="email" name="email" class="form-control" type="email" placeholder="Email" value="<?php if(isset($r['email'])){ echo $r['email'];}?>">
-					<input id="ssn" name="ssn" class="form-control" type="number" placeholder="SSN" value="<?php if(isset($r['ssn'])){ echo $r['ssn'];}?>">
+					<input id="batId" name="batId" class="form-control" type="number" placeholder="Bat ID" value="<?php if(isset($r['bat_id'])){ echo $r['bat_id'];}?>">
 					<input id="dob" name="dob" class="form-control" type="date" value="<?php if(isset($r['dob'])){ echo $r['dob'];}?>">
 					<input name="id" class="form-control" type="hidden" value="<?=$id?>">
 					<label id="lActive" for="active"><input id="active" name="active" type="checkbox" <?php if($r['active'] == "1"){ echo "checked"; } ?>> Active</label>
 					
-					<input id="submit" class="form-control btn btn-primary" name="editSubmit" type="submit" value="Submit">
+					<div class="row">
+						<input id="submit" class="form-control btn btn-primary col-md-6" name="editSubmit" type="submit" value="Submit">
+						<a id="cancelBtn" class="form-control btn btn-default col-md-6" href="employees.php">Cancel</a>
+					</div> <!-- END .row -->
 				</div> <!-- #leftCol -->
 				
 				<div id="rightCol" class="col-md-6"></div> <!-- #rightCol -->	
 			</div> <!-- .row -->
 		</form>
+	</section>
 <?php
 /* END edit employees page section *********************/
 } elseif(isset($_POST['inactivateSubmit'])){
@@ -275,7 +284,7 @@ $r = $q->fetch();
 			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 		}
 	} // END foreach()
-	// @TODO display message for user to know that "X" employees were inactivated
+		showHeader("Inactivate an Employee Record");
 ?>
 	<section class="container-fluid">
 		<div class="row">
@@ -295,6 +304,7 @@ $r = $q->fetch();
 					<th>Zip Code</th>
 					<th>Phone</th>
 					<th>Email</th>
+					<th>Bat ID</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -324,6 +334,7 @@ $r = $q->fetch();
 					<td><?=htmlspecialchars("$c[zip]")?></td>
 					<td><a href="tel:<?=htmlspecialchars("$c[phone]")?>" class="phoneLink"><?=htmlspecialchars("$c[phone]")?></a></td>
 					<td><a href="mailto:<?=htmlspecialchars("$c[email]")?>" class="emailLink"><?=htmlspecialchars("$c[email]")?></a></td>
+					<td><?=htmlspecialchars("$c[bat_id]")?></td>
 				</tr>
 <?php
 	}
@@ -353,6 +364,7 @@ $r = $q->fetch();
 		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
 	$employees = $q->fetchAll(PDO::FETCH_ASSOC);
+	showHeader("Inactivate an Employee Record");
 ?>
 	<section id="allEmployees" class="container-fluid">
 		<div class="row">
@@ -382,6 +394,7 @@ $r = $q->fetch();
 					<th>Zip Code</th>
 					<th>Phone</th>
 					<th>Email</th>
+					<th>Bat ID</th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -406,6 +419,7 @@ $r = $q->fetch();
 					<td><?=htmlspecialchars("$e[zip]")?></td>
 					<td><a href="tel:<?=htmlspecialchars("$e[phone]")?>" class="phoneLink"><?=htmlspecialchars("$e[phone]")?></a></td>
 					<td><a href="mailto:<?=htmlspecialchars("$e[email]")?>" class="emailLink"><?=htmlspecialchars("$e[email]")?></a></td>
+					<td><?=htmlspecialchars("$e[bat_id]")?></td>
 					<td><a title="Edit" href="employees.php?edit=true&id=<?=$e['id'];?>" class="btn btn-success">Edit</a></td>
 				</tr>
 				<?php
@@ -433,6 +447,7 @@ $r = $q->fetch();
 		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
 	$employees = $q->fetchAll(PDO::FETCH_ASSOC);
+	showHeader("Active Employee Records");
 ?>
 	<section id="allEmployees" class="container-fluid">
 		<div class="row">
@@ -457,12 +472,12 @@ $r = $q->fetch();
 					<th>First Name</th>
 					<th>Last Name</th>
 					<th>Address</th>
-					<!-- may need to add Address 2 here  -->
 					<th>City</th>
 					<th>State</th>
 					<th>Zip Code</th>
 					<th>Phone</th>
 					<th>Email</th>
+					<th>Bat ID</th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -484,6 +499,7 @@ $r = $q->fetch();
 					<td><?=htmlspecialchars("$e[zip]")?></td>
 					<td><a href="tel:<?=htmlspecialchars("$e[phone]")?>" class="phoneLink"><?=htmlspecialchars("$e[phone]")?></a></td>
 					<td><a href="mailto:<?=htmlspecialchars("$e[email]")?>" class="emailLink"><?=htmlspecialchars("$e[email]")?></a></td>
+					<td><?=htmlspecialchars("$e[bat_id]")?></td>
 					<td><a title="Edit" href="employees.php?edit=true&id=<?=$e['id'];?>" class="btn btn-success">Edit</a></td>
 				</tr>
 				<?php

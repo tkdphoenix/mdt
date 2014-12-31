@@ -18,7 +18,7 @@
 					<li class="col-med-2"><a href="companies.php">Companies</a></li>
 					<li class="col-med-2"><a href="testRecords.php">Test Records</a></li>
 					<li class="col-med-2"><a href="employees.php">Employees</a></li>
-					<li class="col-med-2"><a href="timeRecords.php">Time Records</a></li>
+					<!-- <li class="col-med-2"><a href="timeRecords.php">Time Records</a></li> -->
 					<li class="col-med-2"><a href="payroll.php">Payroll Summary</a></li>
 					<li class="col-med-2"><a href="tests.php">Test Summary</a></li>
 				</ul>

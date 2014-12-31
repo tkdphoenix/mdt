@@ -43,3 +43,7 @@ nav>ul>li>a{ color: #333; }
 }
 #lActive{ display: block; }
 #createAnother{ margin-top: 10px; }
+#cancelBtn{ 
+	margin: 20px 0 0 10px;
+	max-width: 150px;
+}
