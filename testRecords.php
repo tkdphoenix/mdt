@@ -10,88 +10,105 @@
 		<form id="form1" class="form-inline container-fluid" action="?" method="post">
 			<div class="row">
 				<div id="leftCol" class="col-md-5">
-					<select name="companyName" id="companyName" class="form-control">
-						<option value="" selected>Company Name</option>
-						<?php
-						$sql = "SELECT company_name FROM companies WHERE active=:active";
-						$active = true;
-						// run the query to get all companies for the dropdown 
-						try{
-							$q = $conn->prepare($sql);
-							$q->bindParam(':active', $active, PDO::PARAM_STR);
-							$q->execute();
-						} catch(PDOException $e){
-							file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
-						}
-						$companies = $q->fetchAll(PDO::FETCH_ASSOC);
-						foreach($companies as $c){
-						?>
-						<option value="<?=htmlspecialchars("$c[company_name]")?>"><?=htmlspecialchars("$c[company_name]")?></option>
-						<?php
-						}
-						?>
-					</select> <!-- #companyName -->
-					<select name="testName" id="testName" class="form-control">
-						<option value="" selected>Test Name</option>
-						<?php
-						$active = true;
-						$sql = "SELECT name FROM test_types WHERE active=:active";
-						// run the query to get all test_types for the dropdown 
-						try{
-							$q = $conn->prepare($sql);
-							$q->bindParam(':active', $active, PDO::PARAM_STR);
-							$q->execute();
-						} catch(PDOException $e){
-							file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
-						}
-						$testTypes = $q->fetchAll(PDO::FETCH_ASSOC);
-						foreach($testTypes as $t){
-						?>
-						<option value="<?=htmlspecialchars("$t[name]")?>"><?=htmlspecialchars("$t[name]")?></option>
-						<?php
-						}
-						?>
-					</select>
-					<label for="testDate"><input id="testDate" class="form-control" name="testDate" type="date"> Test Date</label>
-					<label for="numTests"><input id="numTests" class="form-control" name="numTests" type="number"> # Tests</label>
-					<select name="techName" id="techName" class="form-control">
-						<option value="" selected>Technician Name</option>
-						<?php
-						$active = true;
-						$sql = "SELECT first, last, id FROM employees WHERE active=:active";
-						// run the query to get all test_types for the dropdown 
-						try{
-							$q = $conn->prepare($sql);
-							$q->bindParam(':active', $active, PDO::PARAM_STR);
-							$q->execute();
-						} catch(PDOException $e){
-							file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
-						}
-						$employees = $q->fetchAll(PDO::FETCH_ASSOC);
-						foreach($employees as $e){
-						?>
-						<option value="<?=htmlspecialchars("$e[id]")?>"><?=htmlspecialchars("$e[first]")?> <?=htmlspecialchars("$e[last]")?></option>
-						<?php
-						}
-						?>
-					</select>
+					<label for="companyName">
+						<select name="companyName" id="companyName" class="form-control" tabindex="10">
+							<option value="" selected>Company Name</option>
+							<?php
+							$sql = "SELECT company_name FROM companies WHERE active=:active";
+							$active = true;
+							// run the query to get all companies for the dropdown 
+							try{
+								$q = $conn->prepare($sql);
+								$q->bindParam(':active', $active, PDO::PARAM_STR);
+								$q->execute();
+							} catch(PDOException $e){
+								file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
+							}
+							$companies = $q->fetchAll(PDO::FETCH_ASSOC);
+							foreach($companies as $c){
+							?>
+							<option value="<?=htmlspecialchars("$c[company_name]")?>"><?=htmlspecialchars("$c[company_name]")?></option>
+							<?php
+							}
+							?>
+						</select> <!-- #companyName -->
+					 Company Name</label>
+					<label for="testName">
+						<select name="testName" id="testName" class="form-control" tabindex="20">
+							<option value="" selected>Test Name</option>
+							<?php
+							$active = true;
+							$sql = "SELECT name FROM test_types WHERE active=:active";
+							// run the query to get all test_types for the dropdown 
+							try{
+								$q = $conn->prepare($sql);
+								$q->bindParam(':active', $active, PDO::PARAM_STR);
+								$q->execute();
+							} catch(PDOException $e){
+								file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
+							}
+							$testTypes = $q->fetchAll(PDO::FETCH_ASSOC);
+							foreach($testTypes as $t){
+							?>
+							<option value="<?=htmlspecialchars("$t[name]")?>"><?=htmlspecialchars("$t[name]")?></option>
+							<?php
+							}
+							?>
+						</select>
+					 Test Name</label>
+					<label for="testDate"><input id="testDate" class="form-control" name="testDate" type="date" tabindex="30"> Test Date</label>
+					<label for="numTests"><input id="numTests" class="form-control totalVals" name="numTests" type="number" step="any" tabindex="40"> # Tests</label>
+					<label for="techName">
+						<select name="techName" id="techName" class="form-control" tabindex="50">
+							<option value="" selected>Technician Name</option>
+							<?php
+							$active = true;
+							$sql = "SELECT first, last, id FROM employees WHERE active=:active";
+							// run the query to get all test_types for the dropdown 
+							try{
+								$q = $conn->prepare($sql);
+								$q->bindParam(':active', $active, PDO::PARAM_STR);
+								$q->execute();
+							} catch(PDOException $e){
+								file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
+							}
+							$employees = $q->fetchAll(PDO::FETCH_ASSOC);
+							foreach($employees as $e){
+							?>
+							<option value="<?=htmlspecialchars("$e[id]")?>"><?=htmlspecialchars("$e[first]")?> <?=htmlspecialchars("$e[last]")?></option>
+							<?php
+							}
+							?>
+						</select>
+					 Technician's Name</label>
+					<textarea name="comments" class="form-control" placeholder="Comments"></textarea>
 
 					<div class="row">
-						<input id="submit" class="form-control btn btn-primary col-md-6" name="createSubmit" type="submit" value="Submit">
-						<a id="cancelBtn" class="form-control btn btn-default col-md-6" href="testRecords.php">Cancel</a>
+						<input id="submit" class="form-control btn btn-primary col-md-6" name="createSubmit" type="submit" value="Submit" tabindex="180">
+						<a id="cancelBtn" class="form-control btn btn-default col-md-6" href="testRecords.php" tabindex="190">Cancel</a>
 					</div> <!-- END .row -->
+					<div class="row">
+						<p id="totalAmt" class="col-md-12">Total Fees: $<span id="totalAmtSpan">0.00</span></p>
+					</div>
 				</div> <!-- #leftCol -->
 				<div id="spacer" class="col-md-1"></div>
 				<div id="rightCol" class="col-md-6">
-					<label for="baseFee"><input id="baseFee" class="form-control" name="baseFee" type="text"> Base Fee</label>
-					<label for="fuelFee"><input id="fuelFee" class="form-control" name="fuelFee" type="text"> Fuel Fee</label>
-					<label for="pagerFee"><input id="pagerFee" class="form-control" name="pagerFee" type="text"> Pager Fee</label>
-					<label for="waitTimeFee"><input id="waitTimeFee" class="form-control" name="waitTimeFee" type="text"> Wait Time Fee</label>
-					<label for="driveTimeFee"><input id="driveTimeFee" class="form-control" name="driveTimeFee" type="text"> Drive Time Fee</label>
-					<label for="adminFee"><input id="adminFee" class="form-control" name="adminFee" type="text"> Admin Fee</label>
-					<label for="trainingFee"><input id="trainingFee" class="form-control" name="trainingFee" type="text"> Training Fee</label>
-					<label for="holidayFee"><input id="holidayFee" class="form-control" name="holidayFee" type="text"> Holiday Fee</label>
-					<label for="miscFee"><input id="miscFee" class="form-control" name="miscFee" type="text"> Miscellaneous Fee</label>
+					<label id="lRateType" for="rateType"><select name="rateType" id="rateType" class="form-control" tabindex="60">
+						<option value="">Select rate type</option>
+						<option value="perTest">Per Test</option>
+						<option value="hourly">Hourly</option>
+					</select> Rate Type</label>
+					<label id="lNumHours" for="numHours"><input id="numHours" name="numHours" type="number" step="any" class="form-control totalVals" tabindex="70"> Number of Hours</label>
+					<label for="baseFee"><input id="baseFee" class="form-control totalVals" name="baseFee" type="number" step="any" tabindex="80"> First Test Fee</label>
+					<label for="additionalFees"><input id="additionalFees" class="form-control totalVals" name="additionalFees" type="number" step="any" tabindex="90"> Additional Test Fees</label>
+					<label for="fuelFee"><input id="fuelFee" class="form-control totalVals" name="fuelFee" type="number" step="any" tabindex="100"> Fuel Fee</label>
+					<label for="pagerFee"><input id="pagerFee" class="form-control totalVals" name="pagerFee" type="number" step="any" tabindex="110"> Pager Fee</label>
+					<label for="waitTimeFee"><input id="waitTimeFee" class="form-control totalVals" name="waitTimeFee" type="number" step="any" tabindex="120"> Wait Time Fee</label>
+					<label for="driveTimeFee"><input id="driveTimeFee" class="form-control totalVals" name="driveTimeFee" type="number" step="any" tabindex="130"> Drive Time Fee</label>
+					<label for="adminFee"><input id="adminFee" class="form-control totalVals" name="adminFee" type="number" step="any" tabindex="140"> Admin Fee</label>
+					<label for="trainingFee"><input id="trainingFee" class="form-control totalVals" name="trainingFee" type="number" step="any" tabindex="150"> Training Fee</label>
+					<label for="holidayFee"><input id="holidayFee" class="form-control totalVals" name="holidayFee" type="number" step="any" tabindex="160"> Holiday Fee</label>
+					<label for="miscFee"><input id="miscFee" class="form-control totalVals" name="miscFee" type="number" step="any" tabindex="170"> Miscellaneous Fee</label>
 				</div>
 			</div> <!-- .row -->
 		</form>
@@ -212,11 +229,11 @@
 					<?php
 					if(isset($result['number_of_tests'])){
 					?>
-						<input id="numTests" class="form-control" name="numTests" type="number" value="<?=htmlspecialchars("$result[number_of_tests]")?>">
+						<input id="numTests" class="form-control" name="numTests" type="number" step="any" value="<?=htmlspecialchars("$result[number_of_tests]")?>">
 					<?php
 					} else {
 					?>
-						<input id="numTests" class="form-control" name="numTests" type="number">
+						<input id="numTests" class="form-control" name="numTests" type="number" step="any">
 					<?php
 					}
 					?>
@@ -241,6 +258,7 @@
 							?>
 						</select>
 					 Technician's Name</label>
+					 <textarea name="comments" class="form-control" placeholder="Comments"></textarea>
 					 <label id="lActive" for="active"><input id="active" name="active" type="checkbox" <?php if($result['active'] == "1"){ echo "checked"; } ?>> Active</label>
 					<input name="testId" type="hidden" value="<?=$id?>">
 
@@ -248,11 +266,32 @@
 						<input id="submit" class="form-control btn btn-primary col-md-6" name="editSubmit" type="submit" value="Submit">
 						<a id="cancelBtn" class="form-control btn btn-default col-md-6" href="testRecords.php">Cancel</a>
 					</div> <!-- END .row -->
+					<div class="row">
+						<p id="totalAmt" class="col-md-12">Total Fees: $<span id="totalAmtSpan">0.00</span></p>
+					</div>
 				</div> <!-- END #leftCol -->
+				<div id="rightCol" class="col-md-6">
+					<label id="lRateType" for="rateType"><select name="rateType" id="rateType" class="form-control" tabindex="60">
+						<?php if(!isset($result['rate_type']) || $result['rate_type'] === ""){ echo "<option value=''selected>Select rate type</option>";} else { echo "<option value=''>Select rate type</option>"; } ?>
+						<?php if(isset($result['rate_type']) && $result['rate_type'] === "perTest"){ echo "<option value='perTest' selected>Per Test</option>"; } else { echo "<option value='perTest'>Per Test</option>"; } ?>
+						<?php if(isset($result['rate_type']) && $result['rate_type'] === "hourly"){ echo "<option value='hourly' selected>Hourly</option>"; } else { echo "<option value='hourly'>Hourly</option>"; } ?>
+					</select> Rate Type</label>
+					<label id="lNumHours" for="numHours"><input id="numHours" name="numHours" type="number" step="any" class="form-control totalVals" tabindex="70"> Number of Hours</label>
+					<label for="baseFee"><input id="baseFee" class="form-control totalVals" name="baseFee" type="number" step="any" tabindex="80"> First Test Fee</label>
+					<label for="additionalFees"><input id="additionalFees" class="form-control totalVals" name="additionalFees" type="number" step="any" tabindex="90"> Additional Test Fees</label>
+					<label for="fuelFee"><input id="fuelFee" class="form-control totalVals" name="fuelFee" type="number" step="any" tabindex="100"> Fuel Fee</label>
+					<label for="pagerFee"><input id="pagerFee" class="form-control totalVals" name="pagerFee" type="number" step="any" tabindex="110"> Pager Fee</label>
+					<label for="waitTimeFee"><input id="waitTimeFee" class="form-control totalVals" name="waitTimeFee" type="number" step="any" tabindex="120"> Wait Time Fee</label>
+					<label for="driveTimeFee"><input id="driveTimeFee" class="form-control totalVals" name="driveTimeFee" type="number" step="any" tabindex="130"> Drive Time Fee</label>
+					<label for="adminFee"><input id="adminFee" class="form-control totalVals" name="adminFee" type="number" step="any" tabindex="140"> Admin Fee</label>
+					<label for="trainingFee"><input id="trainingFee" class="form-control totalVals" name="trainingFee" type="number" step="any" tabindex="150"> Training Fee</label>
+					<label for="holidayFee"><input id="holidayFee" class="form-control totalVals" name="holidayFee" type="number" step="any" tabindex="160"> Holiday Fee</label>
+					<label for="miscFee"><input id="miscFee" class="form-control totalVals" name="miscFee" type="number" step="any" tabindex="170"> Miscellaneous Fee</label>
+				</div>
 			</div> <!-- END .row -->
-			
 		</form>
 	</section>
+	<script>calcTotal();</script>
 		<?php
 	} elseif(isset($_POST['createSubmit'])){ // create new record ($_POST)
 		$companyName = $_POST['companyName'];
@@ -260,27 +299,84 @@
 		$testDate = $_POST['testDate'];
 		$numTests = $_POST['numTests'];
 		$techName = $_POST['techName']; // This is actually the tech_id
+		$comments = $_POST['comments'];
+		$rateType = $_POST['rateType'];
+		if($rateType === 'hourly'){ $numHours = $_POST['numHours']; }
+		$baseFee = $_POST['baseFee'];
+		$additionalFees = $_POST['additionalFees'];
+		$fuelFee = $_POST['fuelFee'];
+		$pagerFee = $_POST['pagerFee'];
+		$waitTimeFee = $_POST['waitTimeFee'];
+		$driveTimeFee = $_POST['driveTimeFee'];
+		$adminFee = $_POST['adminFee'];
+		$trainingFee = $_POST['trainingFee'];
+		$holidayFee = $_POST['holidayFee'];
+		$miscFee = $_POST['miscFee'];
 
 		$sql = "INSERT INTO tests (
-				test_name,
 				company,
+				test_name,
 				test_date,
 				number_of_tests,
-				tech_id
+				tech_id,
+				comments,
+				rate_type,";
+		if(isset($numHours) && $numHours != ""){
+			$sql .= "num_hours,";
+		}
+		$sql .= "base_fee,
+				additional_test_fee,
+				fuel_fee,
+				pager_fee,
+				wait_fee,
+				drive_time_fee,
+				admin_fee,
+				training_fee,
+				holiday_fee,
+				misc_fee
 			) VALUES (
-				:testName,
 				:companyName,
+				:testName,
 				:testDate,
 				:numTests,
-				:techName
+				:techName,
+				:comments,
+				:rateType,
+			";
+		if(isset($numHours) && $numHours != ""){
+			$sql .= ":numHours";
+		}
+		$sql .=":baseFee,
+				:additionalFees,
+				:fuelFee,
+				:pagerFee,
+				:waitTimeFee,
+				:driveTimeFee,
+				:adminFee,
+				:trainingFee,
+				:holidayFee,
+				:miscFee
 			)";
 		try{
 			$q = $conn->prepare($sql);
-			$q->bindParam(':testName', $testName, PDO::PARAM_STR);
 			$q->bindParam(':companyName', $companyName, PDO::PARAM_STR);
+			$q->bindParam(':testName', $testName, PDO::PARAM_STR);
 			$q->bindParam(':testDate', $testDate, PDO::PARAM_STR);
 			$q->bindParam(':numTests', $numTests, PDO::PARAM_STR);
 			$q->bindParam(':techName', $techName, PDO::PARAM_STR);
+			$q->bindParam(':comments', $comments, PDO::PARAM_STR);
+			$q->bindParam(':rateType', $rateType, PDO::PARAM_STR);
+			if(isset($numHours) && $numHours != ""){ $q->bindParam(':numHours', $numHours, PDO::PARAM_STR); }
+			$q->bindParam(':baseFee', $baseFee, PDO::PARAM_STR);
+			$q->bindParam(':additionalFees', $additionalFees, PDO::PARAM_STR);
+			$q->bindParam(':fuelFee', $fuelFee, PDO::PARAM_STR);
+			$q->bindParam(':pagerFee', $pagerFee, PDO::PARAM_STR);
+			$q->bindParam(':waitTimeFee', $waitTimeFee, PDO::PARAM_STR);
+			$q->bindParam(':driveTimeFee', $driveTimeFee, PDO::PARAM_STR);
+			$q->bindParam(':adminFee', $adminFee, PDO::PARAM_STR);
+			$q->bindParam(':trainingFee', $trainingFee, PDO::PARAM_STR);
+			$q->bindParam(':holidayFee', $holidayFee, PDO::PARAM_STR);
+			$q->bindParam(':miscFee', $miscFee, PDO::PARAM_STR);
 			$q->execute();
 		} catch(PDOException $e){
 			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
@@ -338,31 +434,74 @@
 		$testDate = $_POST['testDate'];
 		$numTests = $_POST['numTests'];
 		$techName = $_POST['techName'];
+		$comments = $_POST['comments'];
+		$rateType = $_POST['rateType'];
+		if($rateType === 'hourly'){ $numHours = $_POST['numHours']; }
+		$baseFee = $_POST['baseFee'];
+		$additionalFees = $_POST['additionalFees'];
+		$fuelFee = $_POST['fuelFee'];
+		$pagerFee = $_POST['pagerFee'];
+		$waitTimeFee = $_POST['waitTimeFee'];
+		$driveTimeFee = $_POST['driveTimeFee'];
+		$adminFee = $_POST['adminFee'];
+		$trainingFee = $_POST['trainingFee'];
+		$holidayFee = $_POST['holidayFee'];
+		$miscFee = $_POST['miscFee'];
 		if(isset($_POST['active']) && $_POST['active'] == 'on'){
 			$active = 1;
 		} else {
 			$active = 0;
 		}
+
 		$sql = "UPDATE tests SET 
 					company=:companyName,
 					test_name=:testName,
 					test_date=:testDate,
 					number_of_tests=:numTests,
 					tech_id=:techName,
-					active = :active
-					WHERE id=:id";
-
-		$stmt = $conn->prepare($sql);
-
-		$stmt->bindParam(':id', $id, PDO::PARAM_STR);
-		$stmt->bindParam(':companyName', $companyName, PDO::PARAM_STR);
-		$stmt->bindParam(':testName', $testName, PDO::PARAM_STR);
-		$stmt->bindParam(':testDate', $testDate, PDO::PARAM_STR);
-		$stmt->bindParam(':numTests', $numTests, PDO::PARAM_STR);
-		$stmt->bindParam(':techName', $techName, PDO::PARAM_STR);
-		$stmt->bindParam(':active', $active, PDO::PARAM_STR);
-		// run the query to update a company record
+					comments=:comments,
+					rate_type=:rateType,
+					active = :active,";
+		if(isset($numHours) && $numHours != ""){
+			$sql .= "num_hours = :numHours,";
+		}
+		$sql .= "base_fee=:baseFee,
+				additional_test_fee=:additionalFees,
+				fuel_fee=:fuelFee,
+				pager_fee=:pagerFee,
+				wait_fee=:waitTimeFee,
+				drive_time_fee=:driveTimeFee,
+				admin_fee=:adminFee,
+				training_fee=:trainingFee,
+				holiday_fee=:holidayFee,
+				misc_fee=:miscFee
+				WHERE id=:id";
 		try{
+			$stmt = $conn->prepare($sql);
+			$stmt->bindParam(':id', $id, PDO::PARAM_STR);
+			$stmt->bindParam(':companyName', $companyName, PDO::PARAM_STR);
+			$stmt->bindParam(':testName', $testName, PDO::PARAM_STR);
+			$stmt->bindParam(':testDate', $testDate, PDO::PARAM_STR);
+			$stmt->bindParam(':numTests', $numTests, PDO::PARAM_STR);
+			$stmt->bindParam(':techName', $techName, PDO::PARAM_STR);
+			$stmt->bindParam(':comments', $comments, PDO::PARAM_STR);
+			$stmt->bindParam(':active', $active, PDO::PARAM_STR);
+			$stmt->bindParam(':rateType', $rateType, PDO::PARAM_STR);
+			if(isset($numHours) && $numHours != ""){
+				$stmt->bindParam(':numHours', $numHours, PDO::PARAM_STR);
+			}
+			$stmt->bindParam(':baseFee', $baseFee, PDO::PARAM_STR);
+			$stmt->bindParam(':additionalFees', $additionalFees, PDO::PARAM_STR);
+			$stmt->bindParam(':fuelFee', $fuelFee, PDO::PARAM_STR);
+			$stmt->bindParam(':pagerFee', $pagerFee, PDO::PARAM_STR);
+			$stmt->bindParam(':waitTimeFee', $waitTimeFee, PDO::PARAM_STR);
+			$stmt->bindParam(':driveTimeFee', $driveTimeFee, PDO::PARAM_STR);
+			$stmt->bindParam(':adminFee', $adminFee, PDO::PARAM_STR);
+			$stmt->bindParam(':trainingFee', $trainingFee, PDO::PARAM_STR);
+			$stmt->bindParam(':holidayFee', $holidayFee, PDO::PARAM_STR);
+			$stmt->bindParam(':miscFee', $miscFee, PDO::PARAM_STR);
+
+			// run the query to update a company record
 			$stmt->execute();
 		} catch(PDOException $e){
 			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);

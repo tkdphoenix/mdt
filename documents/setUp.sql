@@ -33,16 +33,27 @@ create table companies(
     email varchar(150) not null,
     active boolean not null default true
 );
-
+drop table test_types;
 create table test_types(
     id int unsigned primary key not null auto_increment,
     name varchar(255) not null,
     active boolean not null default true
 );
+
+describe test_types;
 select * from test_types;
-insert into test_types (name)values (
-	'no-show / cancel'
+insert into test_types (name) values (
+#'no show / cancel'
+#'pre-employment'
+#'random_bat'
+#'random_ua'
+#'post accident'
+#'reasonable suspicion'
+#'follow up'
+#'return to duty'
+'other'
 );
+
 create table tests(
     id int unsigned primary key not null auto_increment,
     test_name varchar(255) not null,
@@ -51,7 +62,10 @@ create table tests(
     tech_id int not null,
     test_date date not null,
     comments blob,
-    base_fee decimal(8,2),
+    rate_type varchar(10) not null,
+    num_hours int,
+    base_fee decimal(8,2) not null,
+    additional_test_fee decimal(8,2),
     fuel_fee decimal(8,2),
     pager_fee decimal(8,2),
     wait_fee decimal(8,2),
@@ -84,3 +98,5 @@ create table time_records(
     company_id int unsigned not null,
     test_name varchar(255) not null
 );
+
+describe tests;

@@ -19,7 +19,7 @@ nav>ul>li{
 nav>ul>li>a{ color: #333; }
 .companies h1, #allCompanies h1{ clear: both; }
 #form1{
-	max-width: 500px;
+	max-width: 650px;
 	margin: 0 auto;
 }
 #form1 input,
@@ -27,8 +27,15 @@ nav>ul>li>a{ color: #333; }
 	width: 155px;
 	margin-top: 15px;
 }
+#form1 #cancelBtn{
+	width: 160px;
+	max-width: 200px;
+}
 #form1 #explain{ margin-left: 5px; }
-#form1 #submit{ margin-top: 20px; }
+#form1 #submit{
+	margin-top: 20px;
+	margin-left: 15px;
+}
 #form1 label {
 	width: 140%;
 	max-width:140%;
@@ -46,4 +53,19 @@ nav>ul>li>a{ color: #333; }
 #cancelBtn{ 
 	margin: 20px 0 0 10px;
 	max-width: 150px;
+}
+#lRateType{ float: left; }
+#testRecords #form1 #rightCol #lNumHours{
+	position: absolute;
+	left: 260px;
+	float: right;
+	display: none;
+}
+#totalAmt{
+	margin-top: 20px;
+	font-weight: bold;
+}
+#form1 textarea.form-control{ 
+	height: 80px;
+	margin-top: 15px;
 }

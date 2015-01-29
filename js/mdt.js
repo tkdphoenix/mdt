@@ -78,6 +78,56 @@ Array.prototype.remove = function() {
     return this;
 };
 
+/**
+ *	For adding up all values on the test record pages
+ */
+function calcTotal(){
+	// get values for rates
+	numTests = ($('#numTests').val() === 'undefined' || $('#numTests').val() === '') ? 0 : parseFloat($('#numTests').val());
+	firstTest = ($('#baseFee').val() === 'undefined' || $('#baseFee').val() === '') ? 0 : parseFloat($('#baseFee').val());
+	additionalFees = ($('#additionalFees').val() === 'undefined' || $('#additionalFees').val() === '') ? 0 : parseFloat($('#additionalFees').val());
+	fuelFee = ($('#fuelFee').val() === 'undefined' || $('#fuelFee').val() === '') ? 0 : parseFloat($('#fuelFee').val());
+	pagerFee = ($('#pagerFee').val() === 'undefined' || $('#pagerFee').val() === '') ? 0 : parseFloat($('#pagerFee').val());
+	waitTimeFee = ($('#waitTimeFee').val() === 'undefined' || $('#waitTimeFee').val() === '') ? 0 : parseFloat($('#waitTimeFee').val());
+	driveTimeFee = ($('#driveTimeFee').val() === 'undefined' || $('#driveTimeFee').val() === '') ? 0 : parseFloat($('#driveTimeFee').val());
+	adminFee = ($('#adminFee').val() === 'undefined' || $('#adminFee').val() === '') ? 0 : parseFloat($('#adminFee').val());
+	trainingFee = ($('#trainingFee').val() === 'undefined' || $('#trainingFee').val() === '') ? 0 : parseFloat($('#trainingFee').val());
+	holidayFee = ($('#holidayFee').val() === 'undefined' || $('#holidayFee').val() === '') ? 0 : parseFloat($('#holidayFee').val());
+	miscFee = ($('#miscFee').val() === 'undefined' || $('#miscFee').val() === '') ? 0 : parseFloat($('#miscFee').val());
+
+	subtotal = fuelFee + pagerFee + waitTimeFee + driveTimeFee + adminFee + trainingFee + holidayFee + miscFee;
+
+	// test if the rate is hourly or per test calculate accordingly
+	if($('#rateType').val() === 'hourly'){
+		numHours = parseFloat($('#numHours').val());
+		var baseFee = firstTest * numHours;
+		var additionalFeesSubtotal = additionalFees * numHours;
+		var total = baseFee + additionalFeesSubtotal + subtotal;
+		return total;
+	} else {
+		var total = (additionalFees * (numTests-1)) + firstTest + subtotal;
+		return total;
+	}
+}
+
+/**
+ *	add a zero if total is like ex: 29.5 to make 29.50 for USD
+ *	add two zeros if total is like ex: 29 to make 29.00 for USD
+ */
+function addDecimalZeros(amt){
+	var val = amt.toString();
+	var decIndex = val.indexOf('.');
+	var splitVal = val.split('.');
+	// see if the decimal exists
+	if(decIndex < 0){
+		val = val + ".00";
+		return val;
+	} else if(decIndex && splitVal[1].length < 2){
+		val = val + "0";
+		return val;
+	}
+}
+
 $(function(){
 	/**
 	 *	This block of code causes all checkboxes to be checked if the 
@@ -160,7 +210,25 @@ $(function(){
 		});		
 	}
 
+	/**
+	 *	when the select tag for the rate is chosen on the 
+	 *	"create new test record" page, the 'hourly' input tag is 
+	 *	shown or not shown accordingly.
+	 */
+		
+	$('#rateType').on('change', function(){
+		// console.log('value: ' + $(this).val());
+		if($(this).val() == 'hourly'){
+			$('#lNumHours').show();
+		} else {
+			$('#lNumHours').hide();
+		}
+	});
 
-
-
+	// evaluate total of rates each time a key is pressed
+	$('.totalVals').on('blur', function(){
+		var total = calcTotal();
+		console.log('Total: ' + total);
+		$('#totalAmtSpan').html(total);
+	});
 });
