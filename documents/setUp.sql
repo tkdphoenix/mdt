@@ -43,15 +43,15 @@ create table test_types(
 describe test_types;
 select * from test_types;
 insert into test_types (name) values (
-#'no show / cancel'
-#'pre-employment'
-#'random_bat'
-#'random_ua'
-#'post accident'
-#'reasonable suspicion'
-#'follow up'
-#'return to duty'
-'other'
+'No Show / Cancel'
+'Pre-employment'
+'Random_BAT'
+'Random_UA'
+'Post Accident'
+'Reasonable Suspicion'
+'Follow Up'
+'Return to Duty'
+'Other'
 );
 
 create table tests(
