@@ -225,6 +225,12 @@ $(function(){
 		}
 	});
 
+	/**
+	 *	check the value of rate type when the page is loaded.
+	 *	If it is set to 'hourly', show the hours input box.
+	 */
+	 ($('#rateType').val() === 'hourly')? $('#lNumHours').show() : $('#lNumHours').hide();
+
 	// evaluate total of rates each time a key is pressed
 	$('.totalVals').on('blur', function(){
 		var total = calcTotal();

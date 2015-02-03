@@ -171,7 +171,7 @@
 			<div class="row">
 				<div id="leftCol" class="col-md-6">
 					<label for="companyName">
-						<select name="companyName" id="companyName" class="form-control">
+						<select name="companyName" id="companyName" class="form-control" tabindex="10">
 							<option value="">Company Name</option>
 						<?php
 
@@ -192,7 +192,7 @@
 						</select> <!-- #companyName -->
 					 Company Name</label>
 					<label for="testName">
-						<select name="testName" id="testName" class="form-control">
+						<select name="testName" id="testName" class="form-control" tabindex="20">
 							<option value="">Test Name</option>
 							<?php
 							foreach($testTypes as $t){
@@ -215,11 +215,11 @@
 						<?php
 						if(isset($result['test_date'])){
 						?>
-							<input id="testDate" class="form-control" name="testDate" type="date" value="<?=htmlspecialchars("$result[test_date]")?>">
+							<input id="testDate" class="form-control" name="testDate" type="date" value="<?=htmlspecialchars("$result[test_date]")?>" tabindex="30">
 						<?php
 						} else {
 						?>
-							<input id="testDate" class="form-control" name="testDate" type="date">
+							<input id="testDate" class="form-control" name="testDate" type="date" tabindex="30">
 						<?php
 						}
 						?>
@@ -229,17 +229,17 @@
 					<?php
 					if(isset($result['number_of_tests'])){
 					?>
-						<input id="numTests" class="form-control" name="numTests" type="number" step="any" value="<?=htmlspecialchars("$result[number_of_tests]")?>">
+						<input id="numTests" class="form-control" name="numTests" type="number" step="any" value="<?=htmlspecialchars("$result[number_of_tests]")?>" tabindex="40">
 					<?php
 					} else {
 					?>
-						<input id="numTests" class="form-control" name="numTests" type="number" step="any">
+						<input id="numTests" class="form-control" name="numTests" type="number" step="any" tabindex="40">
 					<?php
 					}
 					?>
 					 Number of Tests</label>
 					<label for="techName">
-						<select name="techName" id="techName" class="form-control">
+						<select name="techName" id="techName" class="form-control" tabindex="50">
 							<option value="">Technician Name</option>
 							<?php
 							foreach($techs as $t){
@@ -258,40 +258,45 @@
 							?>
 						</select>
 					 Technician's Name</label>
-					 <textarea name="comments" class="form-control" placeholder="Comments"></textarea>
-					 <label id="lActive" for="active"><input id="active" name="active" type="checkbox" <?php if($result['active'] == "1"){ echo "checked"; } ?>> Active</label>
+					<textarea name="comments" class="form-control" placeholder="Comments" tabindex="60"></textarea>
+					<label id="lActive" for="active"><input id="active" name="active" type="checkbox" <?php if($result['active'] == "1"){ echo "checked"; } ?> tabindex="70"> Active</label>
 					<input name="testId" type="hidden" value="<?=$id?>">
 
 					<div class="row">
-						<input id="submit" class="form-control btn btn-primary col-md-6" name="editSubmit" type="submit" value="Submit">
-						<a id="cancelBtn" class="form-control btn btn-default col-md-6" href="testRecords.php">Cancel</a>
+						<input id="submit" class="form-control btn btn-primary col-md-6" name="editSubmit" type="submit" value="Submit" tabindex="200">
+						<a id="cancelBtn" class="form-control btn btn-default col-md-6" href="testRecords.php" tabindex="210">Cancel</a>
 					</div> <!-- END .row -->
 					<div class="row">
 						<p id="totalAmt" class="col-md-12">Total Fees: $<span id="totalAmtSpan">0.00</span></p>
 					</div>
 				</div> <!-- END #leftCol -->
 				<div id="rightCol" class="col-md-6">
-					<label id="lRateType" for="rateType"><select name="rateType" id="rateType" class="form-control" tabindex="60">
-						<?php if(!isset($result['rate_type']) || $result['rate_type'] === ""){ echo "<option value=''selected>Select rate type</option>";} else { echo "<option value=''>Select rate type</option>"; } ?>
-						<?php if(isset($result['rate_type']) && $result['rate_type'] === "perTest"){ echo "<option value='perTest' selected>Per Test</option>"; } else { echo "<option value='perTest'>Per Test</option>"; } ?>
-						<?php if(isset($result['rate_type']) && $result['rate_type'] === "hourly"){ echo "<option value='hourly' selected>Hourly</option>"; } else { echo "<option value='hourly'>Hourly</option>"; } ?>
+					<label id="lRateType" for="rateType"><select name="rateType" id="rateType" class="form-control" tabindex="80">
+						<option value=''<?php if(@$result['rate_type'] === ""){ echo " selected"; } ?>>Select rate type</option>
+						<option value='perTest' <?php if(@$result['rate_type'] === "perTest"){ echo "selected"; } ?>>Per Test</option>
+						<option value='hourly' <?php if(@$result['rate_type'] === "hourly"){ echo "selected"; } ?>>Hourly</option>
 					</select> Rate Type</label>
-					<label id="lNumHours" for="numHours"><input id="numHours" name="numHours" type="number" step="any" class="form-control totalVals" tabindex="70"> Number of Hours</label>
-					<label for="baseFee"><input id="baseFee" class="form-control totalVals" name="baseFee" type="number" step="any" tabindex="80"> First Test Fee</label>
-					<label for="additionalFees"><input id="additionalFees" class="form-control totalVals" name="additionalFees" type="number" step="any" tabindex="90"> Additional Test Fees</label>
-					<label for="fuelFee"><input id="fuelFee" class="form-control totalVals" name="fuelFee" type="number" step="any" tabindex="100"> Fuel Fee</label>
-					<label for="pagerFee"><input id="pagerFee" class="form-control totalVals" name="pagerFee" type="number" step="any" tabindex="110"> Pager Fee</label>
-					<label for="waitTimeFee"><input id="waitTimeFee" class="form-control totalVals" name="waitTimeFee" type="number" step="any" tabindex="120"> Wait Time Fee</label>
-					<label for="driveTimeFee"><input id="driveTimeFee" class="form-control totalVals" name="driveTimeFee" type="number" step="any" tabindex="130"> Drive Time Fee</label>
-					<label for="adminFee"><input id="adminFee" class="form-control totalVals" name="adminFee" type="number" step="any" tabindex="140"> Admin Fee</label>
-					<label for="trainingFee"><input id="trainingFee" class="form-control totalVals" name="trainingFee" type="number" step="any" tabindex="150"> Training Fee</label>
-					<label for="holidayFee"><input id="holidayFee" class="form-control totalVals" name="holidayFee" type="number" step="any" tabindex="160"> Holiday Fee</label>
-					<label for="miscFee"><input id="miscFee" class="form-control totalVals" name="miscFee" type="number" step="any" tabindex="170"> Miscellaneous Fee</label>
+					<label id='lNumHours' for='numHours'><input id='numHours' name='numHours' type='number' step='any' class='form-control totalVals' tabindex='90' <?php if(isset($result['num_hours'])){ echo "value='" . $result['num_hours'] . "'"; } ?> > Number of Hours</label>
+					<label for='baseFee'><input id='baseFee' class='form-control totalVals' name='baseFee' type='number' step='any' tabindex='100' <?php if(isset($result['base_fee'])){ echo "value='". $result['base_fee'] ."'";} ?>> First Test Fee</label>
+					<label for='additionalFees'><input id='additionalFees' class='form-control totalVals' name='additionalFees' type='number' step='any' tabindex='110' <?php if(isset($result['additional_test_fee'])){ echo "value='". $result['additional_test_fee'] ."'";} ?>> Additional Test Fees</label>
+					<label for='fuelFee'><input id='fuelFee' class='form-control totalVals' name='fuelFee' type='number' step='any' tabindex='120' <?php if(isset($result['fuel_fee'])){ echo "value='". $result['fuel_fee'] ."'";} ?>> Fuel Fee</label>
+					<label for='pagerFee'><input id='pagerFee' class='form-control totalVals' name='pagerFee' type='number' step='any' tabindex='130' <?php if(isset($result['pager_fee'])){ echo "value='". $result['pager_fee'] ."'";} ?>> Pager Fee</label>
+					<label for='waitTimeFee'><input id='waitTimeFee' class='form-control totalVals' name='waitTimeFee' type='number' step='any' tabindex='140' <?php if(isset($result['wait_fee'])){ echo "value='". $result['wait_fee'] ."'";} ?>> Wait Time Fee</label>
+					<label for='driveTimeFee'><input id='driveTimeFee' class='form-control totalVals' name='driveTimeFee' type='number' step='any' tabindex='150' <?php if(isset($result['drive_time_fee'])){ echo "value='". $result['drive_time_fee'] ."'";} ?>> Drive Time Fee</label>
+					<label for='adminFee'><input id='adminFee' class='form-control totalVals' name='adminFee' type='number' step='any' tabindex='160' <?php if(isset($result['admin_fee'])){ echo "value='". $result['admin_fee'] ."'";} ?>> Admin Fee</label>
+					<label for='trainingFee'><input id='trainingFee' class='form-control totalVals' name='trainingFee' type='number' step='any' tabindex='170' <?php if(isset($result['training_fee'])){ echo "value='". $result['training_fee'] ."'";} ?>> Training Fee</label>
+					<label for='holidayFee'><input id='holidayFee' class='form-control totalVals' name='holidayFee' type='number' step='any' tabindex='180' <?php if(isset($result['holiday_fee'])){ echo "value='". $result['holiday_fee'] ."'";} ?>> Holiday Fee</label>
+					<label for='miscFee'><input id='miscFee' class='form-control totalVals' name='miscFee' type='number' step='any' tabindex='190' <?php if(isset($result['misc_fee'])){ echo "value='". $result['misc_fee'] ."'";} ?>> Miscellaneous Fee</label>
 				</div>
 			</div> <!-- END .row -->
 		</form>
 	</section>
-	<script>calcTotal();</script>
+	<script>
+		$(function(){
+			var total = calcTotal();
+			$('#totalAmtSpan').html(total);
+		});
+	</script>
 		<?php
 	} elseif(isset($_POST['createSubmit'])){ // create new record ($_POST)
 		$companyName = $_POST['companyName'];
@@ -301,7 +306,7 @@
 		$techName = $_POST['techName']; // This is actually the tech_id
 		$comments = $_POST['comments'];
 		$rateType = $_POST['rateType'];
-		if($rateType === 'hourly'){ $numHours = $_POST['numHours']; }
+		$numHours = $_POST['numHours'];
 		$baseFee = $_POST['baseFee'];
 		$additionalFees = $_POST['additionalFees'];
 		$fuelFee = $_POST['fuelFee'];
@@ -312,6 +317,8 @@
 		$trainingFee = $_POST['trainingFee'];
 		$holidayFee = $_POST['holidayFee'];
 		$miscFee = $_POST['miscFee'];
+
+		echo "company: $companyName<br>test: $testName<br>numtests: $numTests<br>techID: $techName<br>comments: $comments<br>rateType: $rateType<br>NumHours: $numHours<br>Base fee: $baseFee<br>Additional: $additionalFees<br>Fuel: $fuelFee<br>";
 
 		$sql = "INSERT INTO tests (
 				company,
@@ -344,7 +351,7 @@
 				:rateType,
 			";
 		if(isset($numHours) && $numHours != ""){
-			$sql .= ":numHours";
+			$sql .= ":numHours,";
 		}
 		$sql .=":baseFee,
 				:additionalFees,
@@ -436,7 +443,7 @@
 		$techName = $_POST['techName'];
 		$comments = $_POST['comments'];
 		$rateType = $_POST['rateType'];
-		if($rateType === 'hourly'){ $numHours = $_POST['numHours']; }
+		$numHours = $_POST['numHours'];
 		$baseFee = $_POST['baseFee'];
 		$additionalFees = $_POST['additionalFees'];
 		$fuelFee = $_POST['fuelFee'];
@@ -461,20 +468,18 @@
 					tech_id=:techName,
 					comments=:comments,
 					rate_type=:rateType,
-					active = :active,";
-		if(isset($numHours) && $numHours != ""){
-			$sql .= "num_hours = :numHours,";
-		}
-		$sql .= "base_fee=:baseFee,
-				additional_test_fee=:additionalFees,
-				fuel_fee=:fuelFee,
-				pager_fee=:pagerFee,
-				wait_fee=:waitTimeFee,
-				drive_time_fee=:driveTimeFee,
-				admin_fee=:adminFee,
-				training_fee=:trainingFee,
-				holiday_fee=:holidayFee,
-				misc_fee=:miscFee
+					active = :active,
+					num_hours = :numHours,
+					base_fee=:baseFee,
+					additional_test_fee=:additionalFees,
+					fuel_fee=:fuelFee,
+					pager_fee=:pagerFee,
+					wait_fee=:waitTimeFee,
+					drive_time_fee=:driveTimeFee,
+					admin_fee=:adminFee,
+					training_fee=:trainingFee,
+					holiday_fee=:holidayFee,
+					misc_fee=:miscFee
 				WHERE id=:id";
 		try{
 			$stmt = $conn->prepare($sql);
@@ -487,9 +492,7 @@
 			$stmt->bindParam(':comments', $comments, PDO::PARAM_STR);
 			$stmt->bindParam(':active', $active, PDO::PARAM_STR);
 			$stmt->bindParam(':rateType', $rateType, PDO::PARAM_STR);
-			if(isset($numHours) && $numHours != ""){
-				$stmt->bindParam(':numHours', $numHours, PDO::PARAM_STR);
-			}
+			$stmt->bindParam(':numHours', $numHours, PDO::PARAM_STR);
 			$stmt->bindParam(':baseFee', $baseFee, PDO::PARAM_STR);
 			$stmt->bindParam(':additionalFees', $additionalFees, PDO::PARAM_STR);
 			$stmt->bindParam(':fuelFee', $fuelFee, PDO::PARAM_STR);

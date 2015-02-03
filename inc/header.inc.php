@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/jquery-ui.min.css">
 	<link rel="stylesheet" href="css/mdt.css">
+	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/modernizr.custom.inputs.js"></script>
 </head>
 <body>
