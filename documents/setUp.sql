@@ -33,7 +33,7 @@ create table companies(
     email varchar(150) not null,
     active boolean not null default true
 );
-drop table test_types;
+
 create table test_types(
     id int unsigned primary key not null auto_increment,
     name varchar(255) not null,
