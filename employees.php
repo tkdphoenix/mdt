@@ -203,17 +203,17 @@
 		<form id="form1" class="form-inline container-fluid" action="?" method="post">
 			<div class="row">
 				<div id="leftCol" class="col-md-6">
-					<input id="" name="first" class="form-control" type="text" placeholder="First Name">
-					<input id="" name="last" class="form-control" type="text" placeholder="Last Name">
-					<input id="" name="addr1" class="form-control" type="text" placeholder="Address 1">
+					<input id="" name="first" class="form-control" type="text" placeholder="First Name" required>
+					<input id="" name="last" class="form-control" type="text" placeholder="Last Name" required>
+					<input id="" name="addr1" class="form-control" type="text" placeholder="Address 1" required>
 					<input id="" name="addr2" class="form-control" type="text" placeholder="Address 2">
-					<input id="city" name="city" class="form-control" type="text" placeholder="City">
+					<input id="city" name="city" class="form-control" type="text" placeholder="City" required>
 					<?php include_once('inc/states.inc.php'); //#state ?>
-					<input id="zip" name="zip" class="form-control" type="number" placeholder="Zip">
-					<input id="phone" name="phone" class="form-control" type="tel" placeholder="Employee Phone">
-					<input id="email" name="email" class="form-control" type="email" placeholder="Email">
-					<input id="batId" name="batId" class="form-control" type="number" placeholder="Bat ID">
-					<input id="dob" name="dob" class="form-control" type="date" placeholder="DOB">
+					<input id="zip" name="zip" class="form-control" type="number" placeholder="Zip" required>
+					<input id="phone" name="phone" class="form-control" type="tel" placeholder="Employee Phone" required>
+					<input id="email" name="email" class="form-control" type="email" placeholder="Email" required>
+					<input id="batId" name="batId" class="form-control" type="number" placeholder="Bat ID" required>
+					<input id="dob" name="dob" class="form-control" type="date" placeholder="DOB" required>
 
 					<div class="row">
 						<input id="submit" class="form-control btn btn-primary col-md-6" name="createSubmit" type="submit" value="Submit">
@@ -239,19 +239,19 @@ showHeader("Edit an Employee Record");
 		<form id="form1" class="form-inline container-fluid" action="?" method="post">
 			<div class="row">
 				<div id="leftCol" class="col-md-6">
-					<input id="firstName" name="firstName" class="form-control" type="text" placeholder="First Name" value="<?php if(isset($r['first'])){ echo $r['first'];}?>">
-					<input id="lastName" name="lastName" class="form-control" type="text" placeholder="Last Name" value="<?php if(isset($r['last'])){ echo $r['last'];}?>">
-					<input id="addr1" name="addr1" class="form-control" type="text" placeholder="Address 1" value="<?php if(isset($r['addr1'])){ echo $r['addr1'];}?>">
+					<input id="firstName" name="firstName" class="form-control" type="text" placeholder="First Name" value="<?php if(isset($r['first'])){ echo $r['first'];}?>" required>
+					<input id="lastName" name="lastName" class="form-control" type="text" placeholder="Last Name" value="<?php if(isset($r['last'])){ echo $r['last'];}?>" required>
+					<input id="addr1" name="addr1" class="form-control" type="text" placeholder="Address 1" value="<?php if(isset($r['addr1'])){ echo $r['addr1'];}?>" required>
 					<input id="addr2" name="addr2" class="form-control" type="text" placeholder="Address 2" value="<?php if(isset($r['addr2'])){ echo $r['addr2'];}?>">
-					<input id="city" name="city" class="form-control" type="text" placeholder="City" value="<?php if(isset($r['city'])){ echo $r['city'];}?>">
+					<input id="city" name="city" class="form-control" type="text" placeholder="City" value="<?php if(isset($r['city'])){ echo $r['city'];}?>" required>
 					
 					<?php include_once('inc/states.inc.php'); //#state ?>
 
-					<input id="zip" name="zip" class="form-control" type="number" placeholder="Zip" value="<?php if(isset($r['zip'])){ echo $r['zip'];}?>">
-					<input id="phone" name="phone" class="form-control" type="tel" placeholder="Employee Phone" value="<?php if(isset($r['phone'])){ echo $r['phone'];}?>">
-					<input id="email" name="email" class="form-control" type="email" placeholder="Email" value="<?php if(isset($r['email'])){ echo $r['email'];}?>">
-					<input id="batId" name="batId" class="form-control" type="number" placeholder="Bat ID" value="<?php if(isset($r['bat_id'])){ echo $r['bat_id'];}?>">
-					<input id="dob" name="dob" class="form-control" type="date" value="<?php if(isset($r['dob'])){ echo $r['dob'];}?>">
+					<input id="zip" name="zip" class="form-control" type="number" placeholder="Zip" value="<?php if(isset($r['zip'])){ echo $r['zip'];}?>" required>
+					<input id="phone" name="phone" class="form-control" type="tel" placeholder="Employee Phone" value="<?php if(isset($r['phone'])){ echo $r['phone'];}?>" required>
+					<input id="email" name="email" class="form-control" type="email" placeholder="Email" value="<?php if(isset($r['email'])){ echo $r['email'];}?>" required>
+					<input id="batId" name="batId" class="form-control" type="number" placeholder="Bat ID" value="<?php if(isset($r['bat_id'])){ echo $r['bat_id'];}?>" required>
+					<input id="dob" name="dob" class="form-control" type="date" value="<?php if(isset($r['dob'])){ echo $r['dob'];}?>" required>
 					<input name="id" class="form-control" type="hidden" value="<?=$id?>">
 					<label id="lActive" for="active"><input id="active" name="active" type="checkbox" <?php if($r['active'] == "1"){ echo "checked"; } ?>> Active</label>
 					

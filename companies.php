@@ -197,18 +197,18 @@
 		<form id="form1" class="form-inline container-fluid" action="?" method="post">
 			<div class="row">
 				<div id="leftCol" class="col-md-6">
-					<input id="" class="form-control" name="company_name" type="text" placeholder="Company Name">
-					<input id="" class="form-control" name="addr1" type="text" placeholder="Company Address 1">
+					<input id="" class="form-control" name="company_name" type="text" placeholder="Company Name" required>
+					<input id="" class="form-control" name="addr1" type="text" placeholder="Company Address 1" required>
 					<input id="" class="form-control" name="addr2" type="text" placeholder="Company Address 2">
-					<input id="city" class="form-control" name="city" type="text" placeholder="City">
+					<input id="city" class="form-control" name="city" type="text" placeholder="City" required>
 					
 					<?php include_once('inc/states.inc.php'); //#state ?>
 
-					<input id="zip" class="form-control" name="zip" type="number" placeholder="Zip">
-					<input id="phone" class="form-control" name="company_phone" type="tel" placeholder="Company Phone">
+					<input id="zip" class="form-control" name="zip" type="number" placeholder="Zip" required>
+					<input id="phone" class="form-control" name="company_phone" type="tel" placeholder="Company Phone" required>
 					<input id="additional_phone" class="form-control" name="additional_phone" type="tel" placeholder="Additional Phone">
-					<input id="DER" class="form-control" name="company_der" type="text" placeholder="Company DER">
-					<input id="email" class="form-control" name="email" type="email" placeholder="Email">
+					<input id="DER" class="form-control" name="company_der" type="text" placeholder="Company DER" required>
+					<input id="email" class="form-control" name="email" type="email" placeholder="Email" required>
 					
 					<div class="row">
 						<input id="submit" class="form-control btn btn-primary col-md-6" name="createSubmit" type="submit" value="Submit">
@@ -236,18 +236,18 @@ showHeader('Edit a Company');
 		<form id="form1" class="form-inline container-fluid" action="?" method="post">
 			<div class="row">
 				<div id="leftCol" class="col-md-6">
-					<input id="company_name" class="form-control" name="company_name" type="text" placeholder="Company Name" value="<?php if(isset($r['company_name'])){ echo $r['company_name'];}?>">
-					<input id="addr1" class="form-control" name="addr1" type="text" placeholder="Company Address 1" value="<?php if(isset($r['addr1'])){ echo $r['addr1'];}?>">
+					<input id="company_name" class="form-control" name="company_name" type="text" placeholder="Company Name" value="<?php if(isset($r['company_name'])){ echo $r['company_name'];}?>" required>
+					<input id="addr1" class="form-control" name="addr1" type="text" placeholder="Company Address 1" value="<?php if(isset($r['addr1'])){ echo $r['addr1'];}?>" required>
 					<input id="addr2" class="form-control" name="addr2" type="text" placeholder="Company Address 2" value="<?php if(isset($r['addr2'])){ echo $r['addr2'];}?>">
-					<input id="city" class="form-control" name="city" type="text" placeholder="City" value="<?php if(isset($r['city'])){ echo $r['city'];}?>">
+					<input id="city" class="form-control" name="city" type="text" placeholder="City" value="<?php if(isset($r['city'])){ echo $r['city'];}?>" required>
 					
 					<?php include_once('inc/states.inc.php'); //#state ?>
 
-					<input id="zip" class="form-control" name="zip" type="number" placeholder="Zip" value="<?php if(isset($r['zip'])){ echo $r['zip'];}?>">
-					<input id="company_phone" class="form-control" name="company_phone" type="tel" placeholder="Company Phone" value="<?php if(isset($r['company_phone'])){ echo $r['company_phone'];}?>">
+					<input id="zip" class="form-control" name="zip" type="number" placeholder="Zip" value="<?php if(isset($r['zip'])){ echo $r['zip'];}?>" required>
+					<input id="company_phone" class="form-control" name="company_phone" type="tel" placeholder="Company Phone" value="<?php if(isset($r['company_phone'])){ echo $r['company_phone'];}?>" required>
 					<input id="additional_phone" class="form-control" name="additional_phone" type="tel" placeholder="Additional Phone" value="<?php if(isset($r['additional_phone'])){ echo $r['additional_phone'];}?>">
-					<input id="company_der" class="form-control" name="company_der" type="text" placeholder="Company DER" value="<?php if(isset($r['company_der'])){ echo $r['company_der'];}?>">
-					<input id="email" class="form-control" name="email" type="email" placeholder="Email" value="<?php if(isset($r['email'])){ echo $r['email'];}?>">
+					<input id="company_der" class="form-control" name="company_der" type="text" placeholder="Company DER" value="<?php if(isset($r['company_der'])){ echo $r['company_der'];}?>" required>
+					<input id="email" class="form-control" name="email" type="email" placeholder="Email" value="<?php if(isset($r['email'])){ echo $r['email'];}?>" required>
 					<input name="id" type="hidden" value="<?=$id?>">
 					<label id="lActive" for="active"><input id="active" name="active" type="checkbox" <?php if($r['active'] == "1"){ echo "checked"; } ?>> Active</label>
 					

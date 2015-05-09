@@ -42,7 +42,7 @@ function showHeader($title){
 <?php
 } // END showHeader()
 
-
+// shows the page footer
 function showFooter(){
 ?>
 		<footer>
@@ -56,4 +56,43 @@ function showFooter(){
 </html>
 <?php
 } // END showFooter()
+
+// send email
+function sendAccessRequest($name, $email){
+	// multiple recipients
+	// $to  = 'aidan@example.com' . ', '; // note the comma
+	// $to .= 'wez@example.com';
+	$to = 'joelgrissom5@gmail.com';
+
+	// subject
+	$subject = 'Admin Rights Request';
+
+	// message
+	$message = "
+	<html>
+	<head>
+	  <title>Admin request for mdtservices.org</title>
+	</head>
+	<body>
+	  <p>$name has requested admin access to the site.</p>
+	  <p>You can <a style='cursor: pointer;' href='http://mdtservices.org/grantAccess.php?email=$email'>grant access</a> or ignore the request and they 
+	  will not be activated</p>
+	</body>
+	</html>
+	";
+
+	// To send HTML mail, the Content-type header must be set
+	$headers  = 'MIME-Version: 1.0' . "\r\n";
+	$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+	// Additional headers
+	$headers .= 'To: Joel <joelgrissom5@gmail.com>' . "\r\n";
+	$headers .= 'From: Your Website <joel@example.com>' . "\r\n";
+	// $headers .= 'Cc: birthdayarchive@example.com' . "\r\n";
+	// $headers .= 'Bcc: birthdaycheck@example.com' . "\r\n";
+
+	// Mail it
+	$wasSent = mail($to, $subject, $message, $headers);	
+	return ($wasSent) ? true : false;	
+}
 ?>

@@ -11,7 +11,7 @@
 			<div class="row">
 				<div id="leftCol" class="col-md-5">
 					<label for="companyName">
-						<select name="companyName" id="companyName" class="form-control" tabindex="10">
+						<select name="companyName" id="companyName" class="form-control" tabindex="10" required>
 							<option value="" selected>Company Name</option>
 							<?php
 							$sql = "SELECT company_name FROM companies WHERE active=:active";
@@ -34,7 +34,7 @@
 						</select> <!-- #companyName -->
 					 Company Name</label>
 					<label for="testName">
-						<select name="testName" id="testName" class="form-control" tabindex="20">
+						<select name="testName" id="testName" class="form-control" tabindex="20" required>
 							<option value="" selected>Test Name</option>
 							<?php
 							$active = true;
@@ -56,10 +56,10 @@
 							?>
 						</select>
 					 Test Name</label>
-					<label for="testDate"><input id="testDate" class="form-control" name="testDate" type="date" tabindex="30"> Test Date</label>
-					<label for="numTests"><input id="numTests" class="form-control totalVals" name="numTests" type="number" step="any" tabindex="40"> # Tests</label>
+					<label for="testDate"><input id="testDate" class="form-control" name="testDate" type="date" tabindex="30" required> Test Date</label>
+					<label for="numTests"><input id="numTests" class="form-control totalVals" name="numTests" type="number" step="any" tabindex="40" required> # Tests</label>
 					<label for="techName">
-						<select name="techName" id="techName" class="form-control" tabindex="50">
+						<select name="techName" id="techName" class="form-control" tabindex="50" required>
 							<option value="" selected>Technician Name</option>
 							<?php
 							$active = true;
@@ -93,13 +93,13 @@
 				</div> <!-- #leftCol -->
 				<div id="spacer" class="col-md-1"></div>
 				<div id="rightCol" class="col-md-6">
-					<label id="lRateType" for="rateType"><select name="rateType" id="rateType" class="form-control" tabindex="60">
+					<label id="lRateType" for="rateType"><select name="rateType" id="rateType" class="form-control" tabindex="60" required>
 						<option value="">Select rate type</option>
 						<option value="perTest">Per Test</option>
 						<option value="hourly">Hourly</option>
 					</select> Rate Type</label>
 					<label id="lNumHours" for="numHours"><input id="numHours" name="numHours" type="number" step="any" class="form-control totalVals" tabindex="70"> Number of Hours</label>
-					<label for="baseFee"><input id="baseFee" class="form-control totalVals" name="baseFee" type="number" step="any" tabindex="80"> First Test Fee</label>
+					<label for="baseFee"><input id="baseFee" class="form-control totalVals" name="baseFee" type="number" step="any" tabindex="80" required> First Test Fee</label>
 					<label for="additionalFees"><input id="additionalFees" class="form-control totalVals" name="additionalFees" type="number" step="any" tabindex="90"> Additional Test Fees</label>
 					<label for="fuelFee"><input id="fuelFee" class="form-control totalVals" name="fuelFee" type="number" step="any" tabindex="100"> Fuel Fee</label>
 					<label for="pagerFee"><input id="pagerFee" class="form-control totalVals" name="pagerFee" type="number" step="any" tabindex="110"> Pager Fee</label>
@@ -171,7 +171,7 @@
 			<div class="row">
 				<div id="leftCol" class="col-md-6">
 					<label for="companyName">
-						<select name="companyName" id="companyName" class="form-control" tabindex="10">
+						<select name="companyName" id="companyName" class="form-control" tabindex="10" required>
 							<option value="">Company Name</option>
 						<?php
 
@@ -192,7 +192,7 @@
 						</select> <!-- #companyName -->
 					 Company Name</label>
 					<label for="testName">
-						<select name="testName" id="testName" class="form-control" tabindex="20">
+						<select name="testName" id="testName" class="form-control" tabindex="20" required>
 							<option value="">Test Name</option>
 							<?php
 							foreach($testTypes as $t){
@@ -215,11 +215,11 @@
 						<?php
 						if(isset($result['test_date'])){
 						?>
-							<input id="testDate" class="form-control" name="testDate" type="date" value="<?=htmlspecialchars("$result[test_date]")?>" tabindex="30">
+							<input id="testDate" class="form-control" name="testDate" type="date" value="<?=htmlspecialchars("$result[test_date]")?>" tabindex="30" required>
 						<?php
 						} else {
 						?>
-							<input id="testDate" class="form-control" name="testDate" type="date" tabindex="30">
+							<input id="testDate" class="form-control" name="testDate" type="date" tabindex="30" required>
 						<?php
 						}
 						?>
@@ -229,17 +229,17 @@
 					<?php
 					if(isset($result['number_of_tests'])){
 					?>
-						<input id="numTests" class="form-control" name="numTests" type="number" step="any" value="<?=htmlspecialchars("$result[number_of_tests]")?>" tabindex="40">
+						<input id="numTests" class="form-control" name="numTests" type="number" step="any" value="<?=htmlspecialchars("$result[number_of_tests]")?>" tabindex="40" required>
 					<?php
 					} else {
 					?>
-						<input id="numTests" class="form-control" name="numTests" type="number" step="any" tabindex="40">
+						<input id="numTests" class="form-control" name="numTests" type="number" step="any" tabindex="40" required>
 					<?php
 					}
 					?>
 					 Number of Tests</label>
 					<label for="techName">
-						<select name="techName" id="techName" class="form-control" tabindex="50">
+						<select name="techName" id="techName" class="form-control" tabindex="50" required>
 							<option value="">Technician Name</option>
 							<?php
 							foreach($techs as $t){
@@ -271,13 +271,13 @@
 					</div>
 				</div> <!-- END #leftCol -->
 				<div id="rightCol" class="col-md-6">
-					<label id="lRateType" for="rateType"><select name="rateType" id="rateType" class="form-control" tabindex="80">
+					<label id="lRateType" for="rateType"><select name="rateType" id="rateType" class="form-control" tabindex="80" required>
 						<option value=''<?php if(@$result['rate_type'] === ""){ echo " selected"; } ?>>Select rate type</option>
 						<option value='perTest' <?php if(@$result['rate_type'] === "perTest"){ echo "selected"; } ?>>Per Test</option>
 						<option value='hourly' <?php if(@$result['rate_type'] === "hourly"){ echo "selected"; } ?>>Hourly</option>
 					</select> Rate Type</label>
 					<label id='lNumHours' for='numHours'><input id='numHours' name='numHours' type='number' step='any' class='form-control totalVals' tabindex='90' <?php if(isset($result['num_hours'])){ echo "value='" . $result['num_hours'] . "'"; } ?> > Number of Hours</label>
-					<label for='baseFee'><input id='baseFee' class='form-control totalVals' name='baseFee' type='number' step='any' tabindex='100' <?php if(isset($result['base_fee'])){ echo "value='". $result['base_fee'] ."'";} ?>> First Test Fee</label>
+					<label for='baseFee'><input id='baseFee' class='form-control totalVals' name='baseFee' type='number' step='any' tabindex='100' <?php if(isset($result['base_fee'])){ echo "value='". $result['base_fee'] ."'";} ?> required> First Test Fee</label>
 					<label for='additionalFees'><input id='additionalFees' class='form-control totalVals' name='additionalFees' type='number' step='any' tabindex='110' <?php if(isset($result['additional_test_fee'])){ echo "value='". $result['additional_test_fee'] ."'";} ?>> Additional Test Fees</label>
 					<label for='fuelFee'><input id='fuelFee' class='form-control totalVals' name='fuelFee' type='number' step='any' tabindex='120' <?php if(isset($result['fuel_fee'])){ echo "value='". $result['fuel_fee'] ."'";} ?>> Fuel Fee</label>
 					<label for='pagerFee'><input id='pagerFee' class='form-control totalVals' name='pagerFee' type='number' step='any' tabindex='130' <?php if(isset($result['pager_fee'])){ echo "value='". $result['pager_fee'] ."'";} ?>> Pager Fee</label>

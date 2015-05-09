@@ -79,7 +79,9 @@ create table tests(
 
 create table login(
     user varchar(50) primary key not null, 
-    pwd varchar(40) not null
+    pwd varchar(60) not null,
+    email varchar(150) not null,
+    active boolean default false
 );
 
 -- time_records is NOT implemented. . . fields added to tests table
