@@ -1,6 +1,12 @@
 <?php
-	include_once('inc/common.inc.php');
+	require_once('inc/startsession.php');
+	require_once('inc/common.inc.php');
 	require_once('inc/conn.inc.php');
+	if(!isset($_SESSION['user'])){
+		$home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/index.php';
+		header('Location: ' . $home_url);
+	}
+
 	if(isset($_POST['createSubmit'])){
 		/* create companies $_POST section *********************/
 		// set post variables
@@ -222,14 +228,19 @@
 <?php
 /* END create companies page section *********************/
 } elseif(isset($_GET['edit'])){
-/* edit companies page section *********************/
-$id = htmlspecialchars($_GET['id']);
-$sql = "SELECT * FROM companies WHERE id=$id";
-$q = $conn->prepare($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$q->execute();
-$r = $q->fetch();
-showHeader('Edit a Company');
+	/* edit companies page section *********************/
+	$id = htmlspecialchars($_GET['id']);
+	$sql = "SELECT * FROM companies WHERE id=:id";
+	$q->bindParam(':id', $id);
+	$q = $conn->prepare($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	try{
+		$q->execute();
+	} catch(PDOException $e){
+		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+	}
+	$r = $q->fetch();
+	showHeader('Edit a Company');
 ?>
 	<section id="editCompany" class="companies container-fluid">
 		<h1 class="text-center">Edit a Company</h1>
@@ -353,9 +364,9 @@ showHeader('Edit a Company');
 } elseif(isset($_GET['inactive'])){
 /* show inactive companies page section *********************/
 	$sql = "SELECT * FROM companies ORDER BY company_name";
+	$q = $conn->prepare($sql);
 	// run the query to get all company records
 	try{
-		$q = $conn->prepare($sql);
 		$q->execute();
 	} catch(PDOException $e){
 		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
@@ -440,9 +451,9 @@ showHeader('Edit a Company');
 } else { 
 /* entire list of active companies page section *********************/
 	$sql = "SELECT * FROM companies WHERE active=true ORDER BY company_name";
+	$q = $conn->prepare($sql);
 	// run the query to get all company records that are active companies
 	try{
-		$q = $conn->prepare($sql);
 		$q->execute();
 	} catch(PDOException $e){
 		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);

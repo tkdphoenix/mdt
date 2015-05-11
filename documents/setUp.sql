@@ -76,12 +76,27 @@ create table tests(
     misc_fee decimal(8,2),
     active boolean not null default true
 );
-
+select * from login;
+SELECT user, pwd, email FROM login WHERE user='JoelGrissom';
+SELECT pwd,
+		user_id,
+		user,
+		email
+		FROM login
+		WHERE 
+			user = :user
+SELECT pwd,
+		user_id,
+		user
+		FROM login
+		WHERE 
+			user ='JoelGrissom';
 create table login(
-    user varchar(50) primary key not null, 
+	user_id int auto_increment primary key,
+    user varchar(50) not null, 
     pwd varchar(60) not null,
     email varchar(150) not null,
-    active boolean default false
+    active boolean default false not null
 );
 
 -- time_records is NOT implemented. . . fields added to tests table

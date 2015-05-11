@@ -1,6 +1,12 @@
 <?php
+	require_once('inc/startsession.php');
 	include_once('inc/common.inc.php');
 	require_once('inc/conn.inc.php');
+	if(!isset($_SESSION['user'])){
+		$home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/index.php';
+		header('Location: ' . $home_url);
+	}
+
 	// create new record ($_GET)
 	if(isset($_GET['create'])){
 		showHeader('Create Test Record');
@@ -16,10 +22,10 @@
 							<?php
 							$sql = "SELECT company_name FROM companies WHERE active=:active";
 							$active = true;
+							$q = $conn->prepare($sql);
+							$q->bindParam(':active', $active, PDO::PARAM_STR);
 							// run the query to get all companies for the dropdown 
 							try{
-								$q = $conn->prepare($sql);
-								$q->bindParam(':active', $active, PDO::PARAM_STR);
 								$q->execute();
 							} catch(PDOException $e){
 								file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
@@ -40,9 +46,9 @@
 							$active = true;
 							$sql = "SELECT name FROM test_types WHERE active=:active";
 							// run the query to get all test_types for the dropdown 
+							$q = $conn->prepare($sql);
+							$q->bindParam(':active', $active, PDO::PARAM_STR);
 							try{
-								$q = $conn->prepare($sql);
-								$q->bindParam(':active', $active, PDO::PARAM_STR);
 								$q->execute();
 							} catch(PDOException $e){
 								file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
@@ -64,10 +70,10 @@
 							<?php
 							$active = true;
 							$sql = "SELECT first, last, id FROM employees WHERE active=:active";
+							$q = $conn->prepare($sql);
+							$q->bindParam(':active', $active, PDO::PARAM_STR);
 							// run the query to get all test_types for the dropdown 
 							try{
-								$q = $conn->prepare($sql);
-								$q->bindParam(':active', $active, PDO::PARAM_STR);
 								$q->execute();
 							} catch(PDOException $e){
 								file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
@@ -118,9 +124,9 @@
 		$id = $_GET['id'];
 		// get the record with the current ID on it
 		$sql = "SELECT * FROM tests WHERE id=:id";
+		$q = $conn->prepare($sql);
+		$q->bindParam(':id', $id, PDO::PARAM_STR);
 		try{
-			$q = $conn->prepare($sql);
-			$q->bindParam(':id', $id, PDO::PARAM_STR);
 			$q->execute();
 		} catch(PDOException $e){
 			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
@@ -131,9 +137,9 @@
 		// run the query to get all companies for the dropdown 
 		$active = true;
 		$sql = "SELECT company_name FROM companies WHERE active=:active";
+		$q = $conn->prepare($sql);
+		$q->bindParam(':active', $active, PDO::PARAM_STR);
 		try{
-			$q = $conn->prepare($sql);
-			$q->bindParam(':active', $active, PDO::PARAM_STR);
 			$q->execute();
 		} catch(PDOException $e){
 			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
@@ -143,9 +149,9 @@
 		// run the query to get all test_types for the dropdown 
 		$active = true;
 		$sql = "SELECT name FROM test_types WHERE active=:active";
+		$q = $conn->prepare($sql);
+		$q->bindParam(':active', $active, PDO::PARAM_STR);
 		try{
-			$q = $conn->prepare($sql);
-			$q->bindParam(':active', $active, PDO::PARAM_STR);
 			$q->execute();
 		} catch(PDOException $e){
 			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
@@ -155,9 +161,9 @@
 		// get all technician's names
 		$active = true;
 		$sql = "SELECT first, last, id FROM employees WHERE active=:active";
+		$q = $conn->prepare($sql);
+		$q->bindParam(':active', $active, PDO::PARAM_STR);
 		try{
-			$q = $conn->prepare($sql);
-			$q->bindParam(':active', $active, PDO::PARAM_STR);
 			$q->execute();
 		} catch(PDOException $e){
 			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
@@ -364,26 +370,26 @@
 				:holidayFee,
 				:miscFee
 			)";
+		$q = $conn->prepare($sql);
+		$q->bindParam(':companyName', $companyName, PDO::PARAM_STR);
+		$q->bindParam(':testName', $testName, PDO::PARAM_STR);
+		$q->bindParam(':testDate', $testDate, PDO::PARAM_STR);
+		$q->bindParam(':numTests', $numTests, PDO::PARAM_STR);
+		$q->bindParam(':techName', $techName, PDO::PARAM_STR);
+		$q->bindParam(':comments', $comments, PDO::PARAM_STR);
+		$q->bindParam(':rateType', $rateType, PDO::PARAM_STR);
+		if(isset($numHours) && $numHours != ""){ $q->bindParam(':numHours', $numHours, PDO::PARAM_STR); }
+		$q->bindParam(':baseFee', $baseFee, PDO::PARAM_STR);
+		$q->bindParam(':additionalFees', $additionalFees, PDO::PARAM_STR);
+		$q->bindParam(':fuelFee', $fuelFee, PDO::PARAM_STR);
+		$q->bindParam(':pagerFee', $pagerFee, PDO::PARAM_STR);
+		$q->bindParam(':waitTimeFee', $waitTimeFee, PDO::PARAM_STR);
+		$q->bindParam(':driveTimeFee', $driveTimeFee, PDO::PARAM_STR);
+		$q->bindParam(':adminFee', $adminFee, PDO::PARAM_STR);
+		$q->bindParam(':trainingFee', $trainingFee, PDO::PARAM_STR);
+		$q->bindParam(':holidayFee', $holidayFee, PDO::PARAM_STR);
+		$q->bindParam(':miscFee', $miscFee, PDO::PARAM_STR);
 		try{
-			$q = $conn->prepare($sql);
-			$q->bindParam(':companyName', $companyName, PDO::PARAM_STR);
-			$q->bindParam(':testName', $testName, PDO::PARAM_STR);
-			$q->bindParam(':testDate', $testDate, PDO::PARAM_STR);
-			$q->bindParam(':numTests', $numTests, PDO::PARAM_STR);
-			$q->bindParam(':techName', $techName, PDO::PARAM_STR);
-			$q->bindParam(':comments', $comments, PDO::PARAM_STR);
-			$q->bindParam(':rateType', $rateType, PDO::PARAM_STR);
-			if(isset($numHours) && $numHours != ""){ $q->bindParam(':numHours', $numHours, PDO::PARAM_STR); }
-			$q->bindParam(':baseFee', $baseFee, PDO::PARAM_STR);
-			$q->bindParam(':additionalFees', $additionalFees, PDO::PARAM_STR);
-			$q->bindParam(':fuelFee', $fuelFee, PDO::PARAM_STR);
-			$q->bindParam(':pagerFee', $pagerFee, PDO::PARAM_STR);
-			$q->bindParam(':waitTimeFee', $waitTimeFee, PDO::PARAM_STR);
-			$q->bindParam(':driveTimeFee', $driveTimeFee, PDO::PARAM_STR);
-			$q->bindParam(':adminFee', $adminFee, PDO::PARAM_STR);
-			$q->bindParam(':trainingFee', $trainingFee, PDO::PARAM_STR);
-			$q->bindParam(':holidayFee', $holidayFee, PDO::PARAM_STR);
-			$q->bindParam(':miscFee', $miscFee, PDO::PARAM_STR);
 			$q->execute();
 		} catch(PDOException $e){
 			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
@@ -481,29 +487,28 @@
 					holiday_fee=:holidayFee,
 					misc_fee=:miscFee
 				WHERE id=:id";
+		$stmt = $conn->prepare($sql);
+		$stmt->bindParam(':id', $id, PDO::PARAM_STR);
+		$stmt->bindParam(':companyName', $companyName, PDO::PARAM_STR);
+		$stmt->bindParam(':testName', $testName, PDO::PARAM_STR);
+		$stmt->bindParam(':testDate', $testDate, PDO::PARAM_STR);
+		$stmt->bindParam(':numTests', $numTests, PDO::PARAM_STR);
+		$stmt->bindParam(':techName', $techName, PDO::PARAM_STR);
+		$stmt->bindParam(':comments', $comments, PDO::PARAM_STR);
+		$stmt->bindParam(':active', $active, PDO::PARAM_STR);
+		$stmt->bindParam(':rateType', $rateType, PDO::PARAM_STR);
+		$stmt->bindParam(':numHours', $numHours, PDO::PARAM_STR);
+		$stmt->bindParam(':baseFee', $baseFee, PDO::PARAM_STR);
+		$stmt->bindParam(':additionalFees', $additionalFees, PDO::PARAM_STR);
+		$stmt->bindParam(':fuelFee', $fuelFee, PDO::PARAM_STR);
+		$stmt->bindParam(':pagerFee', $pagerFee, PDO::PARAM_STR);
+		$stmt->bindParam(':waitTimeFee', $waitTimeFee, PDO::PARAM_STR);
+		$stmt->bindParam(':driveTimeFee', $driveTimeFee, PDO::PARAM_STR);
+		$stmt->bindParam(':adminFee', $adminFee, PDO::PARAM_STR);
+		$stmt->bindParam(':trainingFee', $trainingFee, PDO::PARAM_STR);
+		$stmt->bindParam(':holidayFee', $holidayFee, PDO::PARAM_STR);
+		$stmt->bindParam(':miscFee', $miscFee, PDO::PARAM_STR);
 		try{
-			$stmt = $conn->prepare($sql);
-			$stmt->bindParam(':id', $id, PDO::PARAM_STR);
-			$stmt->bindParam(':companyName', $companyName, PDO::PARAM_STR);
-			$stmt->bindParam(':testName', $testName, PDO::PARAM_STR);
-			$stmt->bindParam(':testDate', $testDate, PDO::PARAM_STR);
-			$stmt->bindParam(':numTests', $numTests, PDO::PARAM_STR);
-			$stmt->bindParam(':techName', $techName, PDO::PARAM_STR);
-			$stmt->bindParam(':comments', $comments, PDO::PARAM_STR);
-			$stmt->bindParam(':active', $active, PDO::PARAM_STR);
-			$stmt->bindParam(':rateType', $rateType, PDO::PARAM_STR);
-			$stmt->bindParam(':numHours', $numHours, PDO::PARAM_STR);
-			$stmt->bindParam(':baseFee', $baseFee, PDO::PARAM_STR);
-			$stmt->bindParam(':additionalFees', $additionalFees, PDO::PARAM_STR);
-			$stmt->bindParam(':fuelFee', $fuelFee, PDO::PARAM_STR);
-			$stmt->bindParam(':pagerFee', $pagerFee, PDO::PARAM_STR);
-			$stmt->bindParam(':waitTimeFee', $waitTimeFee, PDO::PARAM_STR);
-			$stmt->bindParam(':driveTimeFee', $driveTimeFee, PDO::PARAM_STR);
-			$stmt->bindParam(':adminFee', $adminFee, PDO::PARAM_STR);
-			$stmt->bindParam(':trainingFee', $trainingFee, PDO::PARAM_STR);
-			$stmt->bindParam(':holidayFee', $holidayFee, PDO::PARAM_STR);
-			$stmt->bindParam(':miscFee', $miscFee, PDO::PARAM_STR);
-
 			// run the query to update a company record
 			$stmt->execute();
 		} catch(PDOException $e){
@@ -599,9 +604,8 @@
 			ON tests.tech_id = e.id 
 			WHERE tests.id IN ( $list ) 
 			ORDER BY company";
-
 	$stmt = $conn->prepare($sql);
-	// $stmt->bindParam(':list', $list, PDO::PARAM_INT); 
+	$stmt->bindParam(':list', $list, PDO::PARAM_INT); 
 	// run the query to list all tests that just became inactive
 	try{
 		$stmt->execute();
