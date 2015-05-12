@@ -121,6 +121,44 @@ function sendAccessRequest($name, $email){
 	return ($wasSent) ? true : false;	
 } // end sendAccessRequest()
 
+// email for approval of access
+function accessApprovalNotice($name, $email){
+	$to = $email;
+	$from = 'jejabrush@yahoo.com';
+	// subject
+	$subject = 'Admin Rights Approved for mdtservices.org';
+
+	// message
+	$message = "
+	<html>
+	<head>
+	  <title>Admin request approved for mdtservices.org</title>
+	</head>
+	<body>
+	  <p>Hello <?=$name?>,</p>
+	  <p>You can have been approved for admin rights to mdtservices.org. 
+	  	You can start using your login credentials right away to make 
+	  	changes to accounts and records in the system. If you make a change, 
+	  	the system is set up so that no data is permanently lost. It will only 
+	  	be inactivated.</p>
+	  <p>If you have any questions about this access, contact your administrator.</p>
+	</body>
+	</html>
+	";
+
+	// To send HTML mail, the Content-type header must be set
+	$headers  = 'MIME-Version: 1.0' . "\r\n";
+	$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+	// Additional headers
+	$headers .= 'To: $name <$email>' . "\r\n";
+	$headers .= 'From: mdtservices.org <$from>' . "\r\n";
+
+	// Mail it
+	$wasSent = mail($to, $subject, $message, $headers);	
+	return ($wasSent) ? true : false;	
+}
+
 function timeNow(){
 	date_default_timezone_set('America/Phoenix');
 	$date = date('m/d/y H:i:s');

@@ -1,7 +1,7 @@
 create database mobile_drug_testing;
 
 use mobile_drug_testing;
-select * from employees;
+SELECT first, last, phone, email, active FROM employees WHERE email='joelgrissom5@gmail.com';
 create table employees(
     id int unsigned primary key not null auto_increment,
     first varchar(50) not null,
@@ -75,6 +75,7 @@ create table tests(
     active boolean not null default true
 );
 select * from login;
+UPDATE login SET active=0 WHERE email='joelgrissom5@gmail.com';
 create table login(
 	user_id int auto_increment primary key,
     user varchar(50) not null, 

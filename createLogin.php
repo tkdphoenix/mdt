@@ -1,4 +1,16 @@
 <?php
+/** this script is meant to provide a form to request access.
+  * All submissions must be manually approved by an individual.
+  *	A submission is checked to see if they are a current employee
+  * by checking their email against employee records. There is also a check
+  * to ensure that two users do not have the same username.
+  * All requests are added to the database with a column named 'active' which 
+  * defaults to false or 0. The purpose of the approval is to change the active 
+  * column to true or 1. After logging the person's request for admin access,
+  * an email is sent to a current admin user to review if the person is expected
+  * to be requesting access. If not, it can be ignored. If so, they can approve
+  * the request.
+  */
 include_once('inc/common.inc.php');
 require_once('inc/conn.inc.php');
 if(isset($_POST['submitAdmin'])){
@@ -118,11 +130,8 @@ if(isset($_POST['submitAdmin'])){
 		}
 	} // end if($match)
 
-	// @TODO by default the user will not be active and will need to have an email sent to get them validated
-
-	// @TODO provide a message to the user that they will be notified by the administrator once they are granted access
 	$msg = "<p>Your request has been submitted, and once the administrator approves the request you will be notified that access has been granted</p>";
-	$err = "<p class='alert alert-danger'>Your email could not be submitted. Please try again later or speak to the administrator about this error</p>";
+	$err = "<p class='alert alert-danger'>Your email could not be submitted. Please try again later or speak to the administrator about this error.</p>";
 	// @TODO return to login page
 	$mail = sendAccessRequest($name, $email);
 	echo ($mail) ? $msg : $err;

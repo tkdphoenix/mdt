@@ -66,6 +66,13 @@
 
 
 
+
+
+// @TODO need to confirm person with active employee status and also test to see if admin access is active before allowing admin user to enter system
+
+
+
+
 	// if the user is signed in then redirect to companies.php - otherwise, show the login form which redirects to login.php
 	if(isset($_SESSION['user_id'])){
 		$home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/companies.php';
