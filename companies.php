@@ -534,5 +534,6 @@
 <?php
 /* END entire list of active companies page section *********************/
 }
-include_once('inc/footer.inc.php');
+// include_once('inc/footer.inc.php');
+showFooter();
 ?>

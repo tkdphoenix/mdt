@@ -40,8 +40,6 @@ create table test_types(
     active boolean not null default true
 );
 
-describe test_types;
-select * from test_types;
 insert into test_types (name) values (
 'No Show / Cancel'
 'Pre-employment'
@@ -76,21 +74,7 @@ create table tests(
     misc_fee decimal(8,2),
     active boolean not null default true
 );
-select * from login;
-SELECT user, pwd, email FROM login WHERE user='JoelGrissom';
-SELECT pwd,
-		user_id,
-		user,
-		email
-		FROM login
-		WHERE 
-			user = :user
-SELECT pwd,
-		user_id,
-		user
-		FROM login
-		WHERE 
-			user ='JoelGrissom';
+
 create table login(
 	user_id int auto_increment primary key,
     user varchar(50) not null, 
@@ -115,5 +99,3 @@ create table time_records(
     company_id int unsigned not null,
     test_name varchar(255) not null
 );
-
-describe tests;

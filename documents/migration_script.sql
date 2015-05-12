@@ -2,7 +2,7 @@
 -- MySQL Workbench Migration
 -- Migrated Schemata: mobile_drug_testing
 -- Source Schemata: mobile_drug_testing
--- Created: Fri May 08 21:22:58 2015
+-- Created: Mon May 11 19:40:29 2015
 -- Workbench Version: 6.3.3
 -- ----------------------------------------------------------------------------
 
@@ -55,17 +55,21 @@ CREATE TABLE IF NOT EXISTS `mobile_drug_testing`.`employees` (
   `bat_id` INT(11) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = latin1;
 
 -- ----------------------------------------------------------------------------
 -- Table mobile_drug_testing.login
 -- ----------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mobile_drug_testing`.`login` (
+  `user_id` INT(11) NOT NULL AUTO_INCREMENT,
   `user` VARCHAR(50) NOT NULL,
-  `pwd` VARCHAR(40) NOT NULL,
-  PRIMARY KEY (`user`))
-ENGINE = InnoDB
+  `pwd` VARCHAR(60) NOT NULL,
+  `email` VARCHAR(150) NOT NULL,
+  `active` TINYINT(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`user_id`))
+ENGINE = MyISAM
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = latin1;
 
 -- ----------------------------------------------------------------------------

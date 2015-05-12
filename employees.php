@@ -20,6 +20,7 @@
 		$phone = $_POST['phone'];
 		$email = $_POST['email'];
 		$batId = $_POST['batId'];
+		$ssn = $_POST['ssn'];
 		$dob = $_POST['dob'];
 
 		// SQL statement - use PDO::prepare() when possible
@@ -33,6 +34,7 @@
 			phone,
 			email,
 			bat_id,
+			ssn,
 			dob) VALUES (
 			:first,
 			:last,
@@ -44,6 +46,7 @@
 			:phone,
 			:email,
 			:batId,
+			:ssn,
 			:dob)";
 		
 		$stmt = $conn->prepare($sql);
@@ -58,6 +61,7 @@
 		$stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
 		$stmt->bindParam(':email', $email, PDO::PARAM_STR);
 		$stmt->bindParam(':batId', $batId, PDO::PARAM_STR);
+		$stmt->bindParam(':ssn', $ssn, PDO::PARAM_STR);
 		$stmt->bindParam(':dob', $dob, PDO::PARAM_STR);
 		// run the query to insert a new employee record
 		try{
@@ -117,6 +121,7 @@
 		$zip = $_POST['zip'];
 		$phone = $_POST['phone'];
 		$email = $_POST['email'];
+		$ssn = $_POST['ssn'];
 		$batId = $_POST['batId'];
 		$dob = $_POST['dob'];
 		if(isset($_POST['active']) && $_POST['active'] == 'on'){
@@ -135,6 +140,7 @@
 					zip=:zip,
 					phone=:phone,
 					email=:email,
+					ssn=:ssn,
 					bat_id=:batId,
 					dob=:dob,
 					active=:active
@@ -151,6 +157,7 @@
 		$stmt->bindParam(':zip', $zip, PDO::PARAM_STR);
 		$stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
 		$stmt->bindParam(':email', $email, PDO::PARAM_STR);
+		$stmt->bindParam(':ssn', $ssn, PDO::PARAM_STR);
 		$stmt->bindParam(':batId', $batId, PDO::PARAM_STR);
 		$stmt->bindParam(':dob', $dob, PDO::PARAM_STR);
 		$stmt->bindParam(':active', $active, PDO::PARAM_STR);
@@ -182,6 +189,7 @@
 				<p>Zip: <?=$zip?></p>
 				<p>Employee Phone: <?=$phone?></p>
 				<p>Email: <?=$email?></p>
+				<p>SSN: <?=$ssn?></p>
 				<p>Bat ID: <?=$batId?></p>
 				<p>DOB: <?=$dob?></p>
 				<p>Active: Yes</p>
@@ -219,6 +227,7 @@
 					<input id="phone" name="phone" class="form-control" type="tel" placeholder="Employee Phone" required>
 					<input id="email" name="email" class="form-control" type="email" placeholder="Email" required>
 					<input id="batId" name="batId" class="form-control" type="number" placeholder="Bat ID" required>
+					<input id="ssn" name="ssn" class="form-control" type="text" placeholder="SSN" required>
 					<input id="dob" name="dob" class="form-control" type="date" placeholder="DOB" required>
 
 					<div class="row">
@@ -256,6 +265,7 @@ showHeader("Edit an Employee Record");
 					<input id="zip" name="zip" class="form-control" type="number" placeholder="Zip" value="<?php if(isset($r['zip'])){ echo $r['zip'];}?>" required>
 					<input id="phone" name="phone" class="form-control" type="tel" placeholder="Employee Phone" value="<?php if(isset($r['phone'])){ echo $r['phone'];}?>" required>
 					<input id="email" name="email" class="form-control" type="email" placeholder="Email" value="<?php if(isset($r['email'])){ echo $r['email'];}?>" required>
+					<input id="ssn" name="ssn" class="form-control" type="text" placeholder="SSN" value="<?php if(isset($r['ssn'])){ echo $r['ssn'];}?>" required>
 					<input id="batId" name="batId" class="form-control" type="number" placeholder="Bat ID" value="<?php if(isset($r['bat_id'])){ echo $r['bat_id'];}?>" required>
 					<input id="dob" name="dob" class="form-control" type="date" value="<?php if(isset($r['dob'])){ echo $r['dob'];}?>" required>
 					<input name="id" class="form-control" type="hidden" value="<?=$id?>">
@@ -363,9 +373,11 @@ showHeader("Edit an Employee Record");
 } elseif(isset($_GET['inactive'])){
 /* show inactive employees page section *********************/
 	$sql = "SELECT * FROM employees ORDER BY last";
+	$q = $conn->prepare($sql);
+
 	// run the query to get all employee records
 	try{
-		$q = $conn->query($sql);
+		$q->execute();		
 	} catch(PDOException $e){
 		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
@@ -447,12 +459,15 @@ showHeader("Edit an Employee Record");
 /* entire list of active employees page section *********************/
 	$sql = "SELECT * FROM employees WHERE active=true ORDER BY last";
 	// run the query to get all employee records that are active employees
+	$q = $conn->prepare($sql);
+
 	try{
-		$q = $conn->query($sql);
+		$q->execute();
 	} catch(PDOException $e){
 		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
 	$employees = $q->fetchAll(PDO::FETCH_ASSOC);
+
 	showHeader("Active Employee Records");
 ?>
 	<section id="allEmployees" class="container-fluid">
@@ -525,5 +540,6 @@ showHeader("Edit an Employee Record");
 <?php
 /* END entire list of active employees page section *********************/
 }
-include_once('inc/footer.inc.php');
+// include_once('inc/footer.inc.php');
+showFooter();
 ?>

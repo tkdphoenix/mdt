@@ -37,8 +37,8 @@ function showHeader($title){
 						<li class="col-md-1"><a href="employees.php">Employees</a></li>
 						<li class="col-md-1"><a href="payroll.php">Payroll Summary</a></li>
 						<li class="col-md-1"><a href="tests.php">Test Summary</a></li>
-						<li class="col-md-1 col-md-offset-5 btn btn-default"><a href="logout.php">Log Out</a></li>
-						<span class="col-md-1"></span>
+						<li class="col-md-1 col-md-offset-4 btn btn-default"><a href="logout.php">Log Out</a></li>
+						<span class="col-md-2"></span>
 					</ul>
 				</nav>
 	<?php	

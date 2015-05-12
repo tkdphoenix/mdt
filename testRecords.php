@@ -788,5 +788,6 @@
 	</section>
 <?php
 	} // END else (show all active records)
-	include_once('inc/footer.inc.php');
+	// include_once('inc/footer.inc.php');
+	showFooter();
 ?>
