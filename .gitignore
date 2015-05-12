@@ -62,3 +62,4 @@ Thumbs.db
 *.pdf
 *inc/conn.inc.php*
 timeRecords.php
+PDOErrors.txt
