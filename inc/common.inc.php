@@ -24,13 +24,75 @@ function showHeader($title){
 	</head>
 	<body>
 		<div class="row">
-			<a href="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/index.php'; ?>"><img id="mainLogo" class="col-md-2" src="images/MDTLogo.jpg" alt="MDT Logo"></a>
-			<div class="col-md-10">
+			<div class="col-md-3">
+				<a href="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/index.php'; ?>"><img id="mainLogo" class="col-md-2" src="images/MDTLogo.jpg" alt="MDT Logo"></a>
+			</div>
 	<?php
 	if(isset($_SESSION['user'])){ // the user is logged in, so show the menu
 		// @TODO add "logout" button and welcome $name message for the logged in user.
 	?>
-				<nav>
+			<div class="col-md-9">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">MDT</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="companies.php">Comanies<span class="sr-only">(current)</span></a></li>
+        <li><a href="testRecords.php">Test Records</a></li>
+        <li><a href="employees.php">Employees</a></li>
+        <li><a href="payroll.php">Payroll Summary</a></li>
+        <li><a href="tests.php">Test Summary</a></li>
+        <!-- <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li> -->
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a class="btn btn-default" href="logout.php">Log out</a></li>
+        <!-- <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li> -->
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+
+					<!-- original -->
+			<!-- 	<nav>
 					<ul class="row list-unstyled list-inline">
 						<li class="col-md-1"><a href="companies.php">Companies</a></li>
 						<li class="col-md-1"><a href="testRecords.php">Test Records</a></li>
@@ -40,7 +102,7 @@ function showHeader($title){
 						<li class="col-md-1 col-md-offset-3 btn btn-default"><a href="logout.php">Log Out</a></li>
 						<span class="col-md-3"></span>
 					</ul>
-				</nav>
+				</nav> -->
 	<?php	
 	} else { // the user is not logged in so only show special items on the menu
 	?>
@@ -55,8 +117,8 @@ function showHeader($title){
 	<?php 
 	}
 ?>
-		</div>
-	</div> <!-- .row -->
+			</div>
+		</div> <!-- .row -->
 
 <?php
 } // END showHeader()
