@@ -67,7 +67,7 @@
 		try{
 			$stmt->execute();
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage(), FILE_APPEND);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage(), FILE_APPEND);
 		}
 		/* END create employees $_POST section *********************/
 		showHeader("Create an Employee Record");
@@ -166,7 +166,7 @@
 		try{
 			$stmt->execute();
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 		}
 		showHeader("Edit an Employee Record");
 ?>
@@ -297,7 +297,7 @@ showHeader("Edit an Employee Record");
 		try{
 			$stmt->execute();
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 		}
 	} // END foreach()
 		showHeader("Inactivate an Employee Record");
@@ -333,7 +333,7 @@ showHeader("Edit an Employee Record");
 		$stmt->execute();
 		$employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	} catch(PDOException $e){
-		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+		file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
 
 	foreach($employees as $c){
@@ -379,7 +379,7 @@ showHeader("Edit an Employee Record");
 	try{
 		$q->execute();		
 	} catch(PDOException $e){
-		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+		file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
 	$employees = $q->fetchAll(PDO::FETCH_ASSOC);
 	showHeader("Inactivate an Employee Record");
@@ -464,7 +464,7 @@ showHeader("Edit an Employee Record");
 	try{
 		$q->execute();
 	} catch(PDOException $e){
-		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+		file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
 	$employees = $q->fetchAll(PDO::FETCH_ASSOC);
 

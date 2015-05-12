@@ -25,7 +25,7 @@
 					$stmt->execute();
 					$user = $stmt->fetch(PDO::FETCH_OBJ); // should only be one record
 				} catch(PDOException $e){
-					file_put_contents('PDOErrors.txt', $e->getMessage(), FILE_APPEND);
+					file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage(), FILE_APPEND);
 					exit("There was an issue with the database. Please try again or speak to your administrator.");
 				}
 				if($user){

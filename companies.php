@@ -58,7 +58,7 @@
 		try{
 			$stmt->execute();
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 		}
 		/* END create companies $_POST section *********************/
 		// @TODO write response to user to know that new company was added to DB
@@ -153,7 +153,7 @@
 		try{
 			$stmt->execute();
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 		}
 		// @TODO write response to let user know info was updated
 		showHeader('Edit a Company');
@@ -237,7 +237,7 @@
 	try{
 		$q->execute();
 	} catch(PDOException $e){
-		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+		file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
 	$r = $q->fetch();
 	showHeader('Edit a Company');
@@ -287,7 +287,7 @@
 		try{
 			$stmt->execute();
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 		}
 	} // END foreach()
 	showHeader('Inactivate Companies');
@@ -324,7 +324,7 @@
 		$stmt->execute();
 		$companies = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	} catch(PDOException $e){
-		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+		file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
 
 	foreach($companies as $c){
@@ -369,7 +369,7 @@
 	try{
 		$q->execute();
 	} catch(PDOException $e){
-		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+		file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
 	$companies = $q->fetchAll(PDO::FETCH_ASSOC);
 	showHeader('All Companies');
@@ -456,7 +456,7 @@
 	try{
 		$q->execute();
 	} catch(PDOException $e){
-		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+		file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
 	$companies = $q->fetchAll(PDO::FETCH_ASSOC);
 	showHeader('All Companies');

@@ -28,7 +28,7 @@
 							try{
 								$q->execute();
 							} catch(PDOException $e){
-								file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
+								file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
 							}
 							$companies = $q->fetchAll(PDO::FETCH_ASSOC);
 							foreach($companies as $c){
@@ -51,7 +51,7 @@
 							try{
 								$q->execute();
 							} catch(PDOException $e){
-								file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
+								file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
 							}
 							$testTypes = $q->fetchAll(PDO::FETCH_ASSOC);
 							foreach($testTypes as $t){
@@ -76,7 +76,7 @@
 							try{
 								$q->execute();
 							} catch(PDOException $e){
-								file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
+								file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
 							}
 							$employees = $q->fetchAll(PDO::FETCH_ASSOC);
 							foreach($employees as $e){
@@ -129,7 +129,7 @@
 		try{
 			$q->execute();
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
 		}
 		$result = $q->fetch(PDO::FETCH_ASSOC);
 
@@ -142,7 +142,7 @@
 		try{
 			$q->execute();
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
 		}
 		$companies = $q->fetchAll(PDO::FETCH_ASSOC);
 
@@ -154,7 +154,7 @@
 		try{
 			$q->execute();
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
 		}
 		$testTypes = $q->fetchAll(PDO::FETCH_ASSOC);
 
@@ -166,7 +166,7 @@
 		try{
 			$q->execute();
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
 		}
 		$techs = $q->fetchAll(PDO::FETCH_ASSOC);
 		showHeader('Edit a Test Record');
@@ -392,7 +392,7 @@
 		try{
 			$q->execute();
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
 		}
 		showHeader('Create a Test Record');
 ?>
@@ -418,7 +418,7 @@
 				try{
 					$stmt->execute();
 				} catch(PDOException $e){
-					file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+					file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 				}
 				$result = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -512,7 +512,7 @@
 			// run the query to update a company record
 			$stmt->execute();
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 		}
 		showHeader('Edit a Test Record');
 ?>
@@ -538,7 +538,7 @@
 				try{
 					$stmt->execute();
 				} catch(PDOException $e){
-					file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+					file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 				}
 				$result = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -573,7 +573,7 @@
 			try{
 				$stmt->execute();
 			} catch(PDOException $e){
-				file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+				file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 			}
 		} // END foreach()
 		showHeader('Inactivate Test Records');
@@ -611,7 +611,7 @@
 		$stmt->execute();
 		$tests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	} catch(PDOException $e){
-		file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
+		file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND | LOCK_EX);
 	}
 
 	foreach($tests as $t){
@@ -650,7 +650,7 @@
 		try{
 			$q = $conn->query($sql);
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
 		}
 		$tests = $q->fetchAll(PDO::FETCH_ASSOC);
 		showHeader('All Test Records');
@@ -727,7 +727,7 @@
 		try{
 			$q = $conn->query($sql);
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage()."\n\r", FILE_APPEND || LOCK_EX);
 		}
 		$tests = $q->fetchAll(PDO::FETCH_ASSOC);
 		showHeader('All Test Records');

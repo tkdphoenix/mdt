@@ -27,7 +27,7 @@ if(isset($_POST['submitAdmin'])){
 	try{
 		$stmt->execute();
 	} catch(PDOException $e){
-		file_put_contents('PDOErrors.txt', $e->getMessage(), FILE_APPEND);
+		file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage(), FILE_APPEND);
 		exit("The system could not complete your request. Please speak to the site administrator.");
 	}
 	$fetchAll = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -52,7 +52,7 @@ if(isset($_POST['submitAdmin'])){
 	try{
 		$stmt->execute();
 	} catch(PDOException $e){
-		file_put_contents('PDOErrors.txt', $e->getMessage(), FILE_APPEND);
+		file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage(), FILE_APPEND);
 		exit("The system could not complete your request. Please speak to the site administrator.");
 	}
 
@@ -113,7 +113,7 @@ if(isset($_POST['submitAdmin'])){
 		try{
 			$stmt->execute();
 		} catch(PDOException $e){
-			file_put_contents('PDOErrors.txt', $e->getMessage(), FILE_APPEND);
+			file_put_contents('PDOErrors.txt', timeNow() . ' ' . $e->getMessage(), FILE_APPEND);
 			exit("The system couldn't create the request. Please speak to the site administrator");
 		}
 	} // end if($match)
