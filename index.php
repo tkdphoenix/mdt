@@ -13,7 +13,8 @@
 			if(!empty($user) && !empty($pwd)){ // make sure we have the values we need
 				$sql = "SELECT pwd,
 							user_id,
-							user
+							user,
+							active
 						FROM login
 						WHERE 
 							user = :user";
@@ -34,17 +35,21 @@
 					// if(hash_equals($user->pwd, crypt($pwd, $user->pwd))){
 					if(password_verify($pwd, $user->pwd)){
 						if($postUser === $user->user){
-							// The log-in is OK so set the user ID and user session vars (and cookies), and redirect to the companies.php page
-							// @TODO remove this line
-							// $row = mysqli_fetch_array($data);
-							$_SESSION['user_id'] = $user->user_id;
-							$_SESSION['user'] = $user->user;
-							setcookie('user_id', $user->user_id, time() + (60 * 60 * 24 * 30));    // expires in 30 days
-							setcookie('user', $user->user, time() + (60 * 60 * 24 * 30));  // expires in 30 days
-							$home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/companies.php';
-							header('Location: ' . $home_url);
+							if($user->active == true){ // confirm that the user is active
+								// The log-in is OK so set the user ID and user session vars (and cookies), and redirect to the companies.php page
+								// @TODO remove this line
+								// $row = mysqli_fetch_array($data);
+								$_SESSION['user_id'] = $user->user_id;
+								$_SESSION['user'] = $user->user;
+								setcookie('user_id', $user->user_id, time() + (60 * 60 * 24 * 30));    // expires in 30 days
+								setcookie('user', $user->user, time() + (60 * 60 * 24 * 30));  // expires in 30 days
+								$home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/companies.php';
+								header('Location: ' . $home_url);
+							} else { // end if($user->active == true)
+								$error_msg = "Your credentials are not active yet. Please see your administrator to expidite this request.";
+							}
 						} else {
-							$error_msg = "Your username is does not match the database. Check to ensure proper case is used.<br>".
+							$error_msg = "Your username does not match the database, or is not active. Check to ensure proper case is used.<br>".
 							"Ex: 'MyUser' instead of 'myuser'";
 						}
 					} else {
