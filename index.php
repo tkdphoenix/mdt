@@ -37,8 +37,6 @@
 						if($postUser === $user->user){
 							if($user->active == true){ // confirm that the user is active
 								// The log-in is OK so set the user ID and user session vars (and cookies), and redirect to the companies.php page
-								// @TODO remove this line
-								// $row = mysqli_fetch_array($data);
 								$_SESSION['user_id'] = $user->user_id;
 								$_SESSION['user'] = $user->user;
 								setcookie('user_id', $user->user_id, time() + (60 * 60 * 24 * 30));    // expires in 30 days

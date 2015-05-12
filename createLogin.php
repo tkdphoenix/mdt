@@ -130,11 +130,16 @@ if(isset($_POST['submitAdmin'])){
 		}
 	} // end if($match)
 
-	$msg = "<p>Your request has been submitted, and once the administrator approves the request you will be notified that access has been granted</p>";
+	$msg = "<p>Your request has been submitted, and once the administrator approves the request you will be notified that access has been granted.</p>";
 	$err = "<p class='alert alert-danger'>Your email could not be submitted. Please try again later or speak to the administrator about this error.</p>";
 	// @TODO return to login page
 	$mail = sendAccessRequest($name, $email);
-	echo ($mail) ? $msg : $err;
+	showHeader("Login Request Submitted");
+	if($mail){
+		echo $msg;
+	} else {
+		echo $err;
+	} 
 } else { // the form hasn't been submitted, so show the form
 	showForm(null, null);
 } // end else (form hasn't been submitted)
