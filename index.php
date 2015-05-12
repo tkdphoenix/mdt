@@ -30,7 +30,9 @@
 				}
 				if($user){
 					// hashing the password with its hash as the salt returns the same hash
-					if(hash_equals($user->pwd, crypt($pwd, $user->pwd))){
+					// old line for PHP>=v5.6 
+					// if(hash_equals($user->pwd, crypt($pwd, $user->pwd))){
+					if(password_verify($pwd, $user->pwd)){
 						if($postUser === $user->user){
 							// The log-in is OK so set the user ID and user session vars (and cookies), and redirect to the companies.php page
 							// @TODO remove this line

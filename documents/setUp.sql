@@ -1,7 +1,7 @@
 create database mobile_drug_testing;
 
 use mobile_drug_testing;
-
+select * from employees;
 create table employees(
     id int unsigned primary key not null auto_increment,
     first varchar(50) not null,
@@ -74,11 +74,11 @@ create table tests(
     misc_fee decimal(8,2),
     active boolean not null default true
 );
-
+select * from login;
 create table login(
 	user_id int auto_increment primary key,
     user varchar(50) not null, 
-    pwd varchar(60) not null,
+    pwd varchar(255) not null,
     email varchar(150) not null,
     active boolean default false not null
 );

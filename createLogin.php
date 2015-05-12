@@ -86,15 +86,17 @@ if(isset($_POST['submitAdmin'])){
 			exit();
 		}
 		// higher cost is more secure but consumes more processing power
-		$cost = 10;
-
+		// not necessary when using password_hash()
+		// $cost = 10;
 		// create random salt
-		$salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
-
-		$salt = sprintf("$2a$%02d$", $cost) . $salt;
+		// $salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
+		// $salt = sprintf("$2a$%02d$", $cost) . $salt;
 
 		// hash the password with the salt
-		$hash = crypt($pwd, $salt);
+		// old code for PHP>=v5.6
+		// $hash = crypt($pwd, $salt);
+		// have to change pwd column to be VARCHAR(255)
+		$hash = password_hash($pwd, PASSWORD_DEFAULT);
 
 		$sql = "INSERT INTO login(user,
 			pwd,

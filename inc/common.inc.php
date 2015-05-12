@@ -119,5 +119,11 @@ function sendAccessRequest($name, $email){
 	// Mail it
 	$wasSent = mail($to, $subject, $message, $headers);	
 	return ($wasSent) ? true : false;	
-}
+} // end sendAccessRequest()
+
+function timeNow(){
+	date_default_timezone_set('America/Phoenix');
+	$date = date('m/d/y H:i:s');
+	return $date;
+} // end timeNow()
 ?>
