@@ -1,5 +1,5 @@
 <?php
-	require_once('inc/startsession.php');
+	require_once('inc/startsession.inc.php');
 	require_once('inc/conn.inc.php');
 
 	// Clear the error message

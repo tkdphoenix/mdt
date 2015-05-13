@@ -1,9 +1,10 @@
 <?php
 // This script is meant to allow admin users to validate that someone shoud have 
 // access before granting access
-require_once('inc/startsession.php');
+require_once('inc/startsession.inc.php');
 require_once('inc/common.inc.php');
 require_once('inc/conn.inc.php');
+require_once('inc/checksession.inc.php');
 
 if(isset($_POST['approve'])){
 	$postMail = $_POST['postMail'];
@@ -101,6 +102,23 @@ if(isset($_POST['approve'])){
 		</section>
 	<?php
 	} // end else
+} else { // end elseif(isset($_GET['email']))
+	showHeader("Grant Access");
+?>
+		<section class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>Your're in the wrong place.</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>You can only arrive at this page in a certain way. You probably have no business here. Talk to your administrator for access.</p>
+				</div>
+			</div>
+
+		</section>
+<?php
 }
 showFooter();
 ?>

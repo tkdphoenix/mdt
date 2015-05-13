@@ -3,13 +3,11 @@
   * To change passwords we will verify that the email they put in is to a current login record, 
   * and verify the email as well as requiring a confirmation password to test against.
   */
-require_once('inc/startsession.php');
+require_once('inc/startsession.inc.php');
 require_once('inc/common.inc.php');
 require_once('inc/conn.inc.php');
-if(!isset($_SESSION['user'])){
-	$home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/index.php';
-	header('Location: ' . $home_url);
-}
+require_once('inc/checksession.inc.php');
+
 $title = "Change Password";// function to display the form at various times
 function showChangeForm($title, $error_msg = []){
 

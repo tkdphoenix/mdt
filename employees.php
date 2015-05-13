@@ -1,11 +1,8 @@
 <?php
-	require_once('inc/startsession.php');
+	require_once('inc/startsession.inc.php');
 	include_once('inc/common.inc.php');
 	require_once('inc/conn.inc.php');
-	if(!isset($_SESSION['user'])){
-		$home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/index.php';
-		header('Location: ' . $home_url);
-	}
+	require_once('inc/checksession.inc.php');
 
 	if(isset($_POST['createSubmit'])){
 		/* create employees $_POST section *********************/
