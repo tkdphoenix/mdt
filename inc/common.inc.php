@@ -48,7 +48,7 @@ function showHeader($title){
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul id="mainNav" class="nav navbar-nav">
-        <li><a href="companies.php">Comanies<span class="sr-only">(current)</span></a></li>
+        <li><a href="companies.php">Comanies</a></li>
         <li><a href="testRecords.php">Test Records</a></li>
         <li><a href="employees.php">Employees</a></li>
         <li><a href="payroll.php">Payroll Summary</a></li>

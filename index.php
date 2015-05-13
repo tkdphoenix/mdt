@@ -41,7 +41,7 @@
 								$_SESSION['user'] = $user->user;
 								setcookie('user_id', $user->user_id, time() + (60 * 60 * 24 * 30));    // expires in 30 days
 								setcookie('user', $user->user, time() + (60 * 60 * 24 * 30));  // expires in 30 days
-								$home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/companies.php';
+								$home_url = 'http://' . $_SERVER['HTTP_HOST'] . '/' . 'companies.php';
 								header('Location: ' . $home_url);
 							} else { // end if($user->active == true)
 								$error_msg = "Your credentials are not active yet. Please see your administrator to expidite this request.";
@@ -78,7 +78,7 @@
 
 	// if the user is signed in then redirect to companies.php - otherwise, show the login form which redirects to login.php
 	if(isset($_SESSION['user_id'])){
-		$home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/companies.php';
+		$home_url = 'http://' . $_SERVER['HTTP_HOST'] . '/' . 'companies.php';
 		header('Location: ' . $home_url);
 	} else {
 		require_once('inc/common.inc.php');
