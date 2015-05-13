@@ -237,4 +237,18 @@ $(function(){
 		console.log('Total: ' + total);
 		$('#totalAmtSpan').html(total);
 	});
-});
+
+	// add dataTable() to all tables
+	$('.table').dataTable();
+
+	// remove the 'active' class from all <li> elements before adding the 'active' class to the current page
+	$('#mainNav>li').removeClass('active');
+	$('#mainNav>li>a>span').remove();
+	var urlPath = window.location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
+	$('#mainNav>li>a').each(function(){
+		if($(this).attr('href') === urlPath){
+			$(this).append('<span class="sr-only">(current)</span>');
+			$(this).parent().addClass('active');
+		}
+	});
+}); // end document.ready()
