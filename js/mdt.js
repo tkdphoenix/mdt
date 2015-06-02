@@ -251,4 +251,13 @@ $(function(){
 			$(this).parent().addClass('active');
 		}
 	});
+
+	// handling $.on('change') event for drop down menus on reports and test summaries
+	$(".reporting").on('change', function(){
+		var selecttag = $(this);
+		// need to get the id of the select and the value of the option to pull the correct report
+		var selectid = selecttag.attr('id');
+		var optid = selecttag.val();
+		console.log(optid);
+	}); // end $(".reporting").on('change') 
 }); // end document.ready()

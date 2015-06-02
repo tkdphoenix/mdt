@@ -52,7 +52,7 @@ function showHeader($title){
         <li><a href="testRecords.php">Test Records</a></li>
         <li><a href="employees.php">Employees</a></li>
         <li><a href="payroll.php">Payroll Summary</a></li>
-        <li><a href="tests.php">Test Summary</a></li>
+        <li><a href="testSummary.php">Test Summary</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a class="btn btn-default" href="logout.php">Log out</a></li>
